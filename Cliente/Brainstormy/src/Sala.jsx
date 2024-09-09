@@ -32,9 +32,14 @@ function Sala() {
 
     // Receber notificação de novo usuário
     newSocket.on('userJoined', (newUser) => {
-      setUserList((currentList) => [...currentList, newUser]);  // Adiciona novo usuário à lista
+      setUserList((currentList) => {
+        if (!currentList.includes(newUser)) {
+          return [...currentList, newUser];  // Adiciona novo usuário se ele não estiver na lista
+        }
+        return currentList;  // Se o usuário já estiver na lista, retorna a lista atual
+      });
     });
-
+    
     return () => {
       newSocket.off('recebendoMsg');
       newSocket.off('userJoined');
