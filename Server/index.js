@@ -6,12 +6,16 @@ const io = require('socket.io')(server, { cors: { origin: 'http://localhost:5173
 // Conexão!
 const PORT = 3001;
 
+const users = []; // Array para armazenar os usuários
+
 io.on('connection', (socket) => {
-    
+
     // NOVO USUÁRIO
-    socket.on('newUser', (username) => { //recebendo
+    socket.on('newUser', (username) => { //recebendo usuário
         socket.data.username = username;
-        socket.broadcast.emit('userJoined', username); //enviando  AQUIII
+        users.push(username); // ADD novo usuário à lista
+        io.emit('updateUserList', users); // enviando lista
+        socket.broadcast.emit('userJoined', username); //enviando usuário
     });
 
     // MSG
@@ -26,7 +30,9 @@ io.on('connection', (socket) => {
     // SAINDO
     socket.on('disconnect', (reason) => { //recebendo
         if (socket.data.username) {
-            io.emit('userLeft', socket.data.username);  // enviando
+            users.splice(users.indexOf(socket.data.username), 1); // Remove o usuário da lista
+            io.emit('updateUserList', users); // enviando lista atualizada
+            io.emit('userLeft', socket.data.username);  // enviando saida
         }
     });
 });

@@ -1,5 +1,5 @@
 
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
@@ -20,17 +20,19 @@ function Sala() {
   const messageRef = useRef();
 
   useEffect(() => {
+
     // Criar a conexão socket
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
 
-    newSocket.emit('newUser', username);  //mandar nome usuário
+    newSocket.emit('newUser', username);  //mandar nome usuário SERVER
 
-    newSocket.on('recebendoMsg', (data) => {  // Receber as mensagens
+    // MSG
+    newSocket.on('recebendoMsg', (data) => {  
       setMessageList((current) => [...current, data]);
     });
 
-    // Receber notificação de novo usuário
+    // NOVOS USUÁRIOS
     newSocket.on('userJoined', (newUser) => {
       setUserList((currentList) => {
         if (!currentList.includes(newUser)) {
@@ -39,24 +41,35 @@ function Sala() {
         return currentList;  // Se o usuário já estiver na lista, retorna a lista atual
       });
     });
+
+    // USUÁRIOS SAÍRAM
+    newSocket.on('userLeft', (leftUser) => {
+      setUserList((currentList) => currentList.filter(user => user !== leftUser));
+    });
+
+    // ATUALIZAR LISTA DE USUÁRIOS
+    newSocket.on('updateUserList', (userList) => {
+      setUserList(userList);
+    });
     
     return () => {
-      newSocket.off('recebendoMsg');
-      newSocket.off('userJoined');
-      newSocket.disconnect();  // Desconectar o socket
+      newSocket.off('recebendoMsg'); // MSG
+      newSocket.off('userJoined'); // ENTRAR
+      newSocket.off('userLeft'); // USUÁRIOS SAÍRAM
+      newSocket.off('updateUserList'); // ATUALIZAR LISTA DE USUÁRIOS
+      newSocket.disconnect();  // SAIR
     };
   }, [username]);
 
-  // Função para enviar mensagem
+  // FUNÇÃO MSG
   const handleSubmit = () => {
     const message = messageRef.current.value;
     if (!message.trim()) return;
 
-    socket.emit('newMessage', message); // Enviar a mensagem
+    socket.emit('newMessage', message); //mandar msg SERVER
     messageRef.current.value = '';  // Limpar o input
   };
 
-  //----------------------------------------
   //SAIR
   const handleLeaveRoom = (event) => {
     event.preventDefault();
@@ -105,14 +118,14 @@ function Sala() {
                 </div>
                 <div className='msgBot'>
                   <input type="text" className='inputMensagens' placeholder="Digite sua mensagem" ref={messageRef}/> {/* msg*/}
-                  <button className='enviar' onClick={()=>handleSubmit()}><p>Enviar</p></button>
+                  <button className='enviar' onClick={() => handleSubmit()}><p>Enviar</p></button>
                 </div>
               </div>
             </Conteiner>
 
             {/* SAIR */}
             <Link to="/">
-                <button type="submit" className='sair' onClick={()=>handleLeaveRoom()}><p>Sair da Sala</p></button>
+                <button type="submit" className='sair' onClick={() => handleLeaveRoom()}><p>Sair da Sala</p></button>
             </Link>
 
           </Conteiner>
