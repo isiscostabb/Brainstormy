@@ -1,0 +1,56 @@
+
+/* AJUSTES GERAIS */
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+:root{
+  --cor0: #B8B6AB;
+  --cor1: #9E896F; 
+  --cor2: #652224;
+  --cor3: #362E24;
+  --cor4: #0D0D0D;
+  --cor5: #ffffff;
+}
+
+@font-face {
+  font-family: 'font1';
+  src: url(assets/Fontes/CenturyGothicPaneuropeanRegular.ttf);
+}
+
+@font-face {
+  font-family: 'font2';
+  src: url(assets/Fontes/CenturyGothicPaneuropeanBold.ttf);
+}
+
+body{
+  background-image: url(assets/Imagens/fundo.png);
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+  background-size: cover;
+  background-attachment: fixed;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+main{
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+h1{
+  font-family: 'font2';
+}
+
+h2{
+  font-family: 'font2';
+}
+
+p{
+  font-family: 'font1';
+  color: var(--cor0);
+}

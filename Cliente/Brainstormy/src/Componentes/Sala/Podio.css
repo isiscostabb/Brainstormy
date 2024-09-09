@@ -1,0 +1,50 @@
+
+/* AVATAR */
+.avatar{
+    background-color: var(--cor2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 65px;
+    width: 65px;
+}
+
+/* NOME E PONTUAÇÃO */
+.podioMeio{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+}
+
+.nomeUser{
+    font-family: 'font2';
+    color: var(--cor4);
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.pontuacao{
+    font-family: 'font1';
+    color: var(--cor4);
+    margin-left: 10px; 
+    font-size: 14px;   
+}
+
+/* FUNCAO */
+.funcao{
+    background-color: var(--cor2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 30%;
+    border-radius: 20px;
+}
