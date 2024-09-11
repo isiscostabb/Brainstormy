@@ -11,7 +11,7 @@
     border-radius: 10px;
     z-index: 2;
 }
-
+ 
 
 /* PODIO */
 .h1Sala{
@@ -37,68 +37,4 @@
     height: 90%;
     border-radius: 20px;
     background-color: var(--cor2);
-}
-
-
-/* CHAT */
-.chat{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    height: 90%;
-    border-radius: 20px;
-    background-color: var(--cor5);
-}
-  
-.mensagens{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 65%;
-    width: 100%;
-    margin-bottom: 10px;
-    word-wrap: break-word;
-}
-
-.msg{
-    font-family: 'font2';
-    color: var(--cor4);
-    margin: 10px 0px 0px 20px;
-}
-
-.msg.this{
-    color: #d81939;
-}
-
-.msgBot{
-    position: relative;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-}
-  
-.inputMensagens {
-    position: relative;
-    border: var(--cor4) solid 2px;
-    outline: none;
-    width: 85%;
-    height: 40px;
-    border-radius: 10px;
-    padding-left: 10px;
-}
-
-.enviar{
-    position: relative;
-    background-color: var(--cor2);
-    border: none;
-    height: 40px;
-    width: 10%;
-    border-radius: 10px;
-    cursor: pointer;
 }
