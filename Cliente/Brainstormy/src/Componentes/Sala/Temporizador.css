@@ -1,0 +1,11 @@
+
+.bloco{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cor2);
+    height: 50px;
+    width: 250px;
+    border-radius: 10px;
+}

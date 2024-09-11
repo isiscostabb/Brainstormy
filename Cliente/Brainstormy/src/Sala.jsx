@@ -5,6 +5,7 @@ import { io } from 'socket.io-client';
 
 import Conteiner from './Componentes/Conteiner';
 import Podio from './Componentes/Sala/Podio';
+import Temporizador from './Componentes/Sala/Temporizador';
 import './Sala.css';
 
 function Sala() {
@@ -92,14 +93,16 @@ function Sala() {
                 <Podio key={index} username={user.username} avatarUrl={user.avatarUrl} isOwnUser={user.username === username} />
               ))}  {/* isOwnUser={user === username}, verifica se é o própio usuário */}
             </div>
-
           </Conteiner >
 
+
+
+          {/* LADO DIREITO */}
           <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
 
             <div className='conteinerTop'>
               <div className='bloco'><p>PERGUNTA 1/10</p></div>
-              <div className='bloco'><p>TEMPO RESTANTE 02:00</p></div>
+              <Temporizador/>
             </div>
 
             {/* PERGUNTAS */}
