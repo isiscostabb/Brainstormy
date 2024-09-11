@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import './Temporizador.css';
 
-const socket = io('http://localhost:3001'); // Ajuste a URL conforme necessário
+const socket = io('http://localhost:3001'); 
 
 const Contador = () => {
   const [tempo, setTempo] = useState(120); // 120 segundos = 2 minutos
+  const [statusPergunta, setStatusPergunta] = useState(1); // Status inicial da pergunta
 
   useEffect(() => {
     // Listener para o evento 'tempoAtualizado'
@@ -14,9 +15,15 @@ const Contador = () => {
       setTempo(novoTempo);
     });
 
-    // Limpeza do listener ao desmontar o componente
+    // Listener para o evento 'statusPerguntaAtualizado'
+    socket.on('statusPerguntaAtualizado', (novoStatusPergunta) => {
+      setStatusPergunta(novoStatusPergunta);
+    });
+
+    // Limpeza dos listeners ao desmontar o componente
     return () => {
       socket.off('tempoAtualizado');
+      socket.off('statusPerguntaAtualizado');
     };
   }, []);
 
@@ -27,8 +34,14 @@ const Contador = () => {
   };
 
   return (
-    <div className='bloco'>
-      <p className='tempo'>TEMPO RESTANTE: {formatarTempo(tempo)}</p>
+    <div className='conteinerTop'>
+      <div className='bloco'>
+        <p className='tempo'>TEMPO RESTANTE: {formatarTempo(tempo)}</p> {/* temporizador */}
+      </div>
+
+      <div className='bloco'>
+        <p>PERGUNTA {statusPergunta}/10</p> {/* status perguntas */}
+      </div>
     </div>
   );
 };

@@ -1,19 +1,30 @@
+
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors: { origin: 'http://localhost:5173' } });
 
 const PORT = 3001;
 
-const users = []; // Array para armazenar os usuários
-
-let tempoRestante = 120; // Tempo inicial em segundos
+const users = []; // Array para armazenar usuários
+let tempoRestante = 12; // Tempo inicial(seg)
 let temporizadorAtivo = false;
+let perguntaStatus = 1; // Status inicial pergunta
 
 // Função para atualizar o temporizador
 const atualizarTemporizador = () => {
   if (tempoRestante > 0) {
     tempoRestante -= 1;
     io.emit('tempoAtualizado', tempoRestante); // Envia a atualização do tempo para todos os clientes
+  } else {
+    // Atualiza o status da pergunta
+    perguntaStatus += 1;
+    if (perguntaStatus > 10) {
+      perguntaStatus = 1; // REINICIAR (mudar para depois passar para tela do podio)!!!
+    }
+    io.emit('statusPerguntaAtualizado', perguntaStatus); // Envia a atualização do status da pergunta para todos os clientes
+
+    // Reinicia o temporizador
+    tempoRestante = 12;
   }
 };
 
@@ -29,8 +40,8 @@ io.on('connection', (socket) => {
   socket.on('newUser', (username) => {
     socket.data.username = username;
     users.push(username); // ADD novo usuário à lista
-    io.emit('updateUserList', users); // enviando lista
-    socket.broadcast.emit('userJoined', username); //enviando usuário
+    io.emit('updateUserList', users); // Enviando lista
+    socket.broadcast.emit('userJoined', username); // Enviando usuário
   });
 
   // MSG
@@ -46,8 +57,8 @@ io.on('connection', (socket) => {
   socket.on('disconnect', (reason) => {
     if (socket.data.username) {
       users.splice(users.indexOf(socket.data.username), 1); // Remove o usuário da lista
-      io.emit('updateUserList', users); // enviando lista atualizada
-      io.emit('userLeft', socket.data.username);  // enviando saida
+      io.emit('updateUserList', users); // Enviando lista atualizada
+      io.emit('userLeft', socket.data.username); // Enviando saída
     }
   });
 

@@ -29,30 +29,6 @@
     background-color: var(--cor5);
 }
 
-  
-
-/* TEMPO E STATUS */
-.conteinerTop{
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 8vh;
-    justify-content: space-around;
-    align-items: end;
-}
-
-.bloco{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--cor2);
-    height: 50px;
-    width: 250px;
-    border-radius: 10px;
-}
-
-
 /* PERGUNTA */
 .pergunta{
     position: relative;

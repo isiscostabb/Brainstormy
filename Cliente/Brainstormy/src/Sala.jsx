@@ -95,15 +95,10 @@ function Sala() {
             </div>
           </Conteiner >
 
-
-
           {/* LADO DIREITO */}
           <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
-
-            <div className='conteinerTop'>
-              <div className='bloco'><p>PERGUNTA 1/10</p></div>
-              <Temporizador/>
-            </div>
+ 
+            <Temporizador/>
 
             {/* PERGUNTAS */}
             <Conteiner largura={'100%'} altura={'52vh'}>
