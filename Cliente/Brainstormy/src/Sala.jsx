@@ -98,7 +98,22 @@ function Sala() {
 
           {/* PERGUNTAS */}
           <Conteiner largura={'100%'} altura={'52vh'}>
-            <div className='pergunta'></div>
+            <div className='pergunta'>
+              <h2 className='perguntaTxt'>Por quanto tempo Napoleão governou a França?</h2>
+            
+              <div className='opcoesResposta'>
+                <div className='linha'>
+                  <div className='opcao'><p className='opcaoTxt'>10 anos</p></div>
+                  <div className='opcao'><p className='opcaoTxt'>20 anos</p></div>
+                </div>
+
+                <div className='linha'>
+                  <div className='opcao'><p className='opcaoTxt'>30 anos</p></div>
+                  <div className='opcao'><p className='opcaoTxt'>40 anos</p></div>
+                </div>
+              </div>
+              <p>O resultado aparece somente após o final da rodada</p>
+            </div>
           </Conteiner>
 
           {/* CHAT */}
