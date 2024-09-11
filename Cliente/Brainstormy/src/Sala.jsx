@@ -84,11 +84,12 @@ function Sala() {
           <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
             <h1 className='h1Sala'>PÓDIO</h1>
 
-            <div className='podio'> {/* PODIO DE CADA USER */}
+            <div className='podio'>  {/* PODIO DE CADA USER */}
               {userList.map((user, index) => (
-                <Podio key={index} username={user} />  // Renderiza Podio para cada usuário
-              ))}
+                <Podio key={index} username={user} isOwnUser={user === username} />
+              ))}  {/* isOwnUser={user === username}, verifica se é o própio usuário */}
             </div>
+
           </Conteiner >
 
           <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
