@@ -36,8 +36,10 @@ function Sala() {
     newSocket.on('userJoined', (newUser) => {
       setUserList((currentList) => {
         if (!currentList.includes(newUser)) {
-          return [...currentList, newUser];  // Adiciona novo usuário se ele não estiver na lista
-        }
+           // Gerar URL de avatar aleatória usando RoboHash ou outro serviço
+           const avatarUrl = `https://picsum.photos/seed/${newUser}/50`;
+           return [...currentList, { username: newUser, avatarUrl }];  // Adiciona novo usuário com avatar
+          }
         return currentList;  // Se o usuário já estiver na lista, retorna a lista atual
       });
     });
@@ -49,7 +51,7 @@ function Sala() {
 
     // ATUALIZAR LISTA DE USUÁRIOS
     newSocket.on('updateUserList', (userList) => {
-      setUserList(userList);
+      setUserList(userList.map(user => ({ username: user, avatarUrl: `https://picsum.photos/seed/${user}/50` })));
     });
     
     return () => {
@@ -84,9 +86,10 @@ function Sala() {
           <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
             <h1 className='h1Sala'>PÓDIO</h1>
 
+
             <div className='podio'>  {/* PODIO DE CADA USER */}
               {userList.map((user, index) => (
-                <Podio key={index} username={user} isOwnUser={user === username} />
+                <Podio key={index} username={user.username} avatarUrl={user.avatarUrl} isOwnUser={user.username === username} />
               ))}  {/* isOwnUser={user === username}, verifica se é o própio usuário */}
             </div>
 
@@ -111,11 +114,14 @@ function Sala() {
                 <h2>CHAT PARA DISCUSSÃO</h2>
 
                 <div className='mensagens'>
-                  {
-                    messageList.map((message, index) => (
-                    <p key={index} className='msg'>{message.author}: {message.txt}</p>
-                    ))
-                  }
+                {
+                messageList.map((message, index) => (
+                  <p key={index} className={`msg ${message.author === username ? 'this' : ''}`}>
+                    {message.author}: {message.txt}
+                  </p>
+                ))
+              }
+
                 </div>
                 <div className='msgBot'>
                   <input type="text" className='inputMensagens' placeholder="Digite sua mensagem" ref={messageRef}/> {/* msg*/}

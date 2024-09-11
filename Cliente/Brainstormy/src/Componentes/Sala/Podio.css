@@ -9,6 +9,12 @@
     border-radius: 50%;
     height: 65px;
     width: 65px;
+    overflow: hidden;
+}
+
+.avatarImg {
+    width: 100%;
+    height: auto;
 }
 
 /* NOME E PONTUAÇÃO */
@@ -27,6 +33,10 @@
     color: var(--cor4);
     font-size: 30px;
     margin-left: 10px;
+}
+
+.nomeUser.this{
+    color: #d81939;
 }
 
 .pontuacao{

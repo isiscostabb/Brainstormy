@@ -95,6 +95,10 @@
     margin: 10px 0px 0px 20px;
 }
 
+.msg.this{
+    color: #d81939;
+}
+
 .msgBot{
     position: relative;
     display: flex;
