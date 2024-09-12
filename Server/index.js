@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
   // NOVO USUÁRIO
   socket.on('newUser', (username) => {
     socket.data.username = username;
-    users.push(username); // ADD novo usuário à lista
+    users.push(username);
     io.emit('updateUserList', users); // Enviando lista
     socket.broadcast.emit('userJoined', username); // Enviando usuário
   });

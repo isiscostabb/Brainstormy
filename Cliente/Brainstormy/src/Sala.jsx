@@ -34,18 +34,6 @@ function Sala() {
       setMessageList((current) => [...current, data]);
     });
 
-    // NOVOS USUÁRIOS
-    newSocket.on('userJoined', (newUser) => {
-      setUserList((currentList) => {
-        if (!currentList.some(user => user.username === newUser)) {
-          const avatarUrl = `https://picsum.photos/seed/${newUser}/50`;
-          return [...currentList, { username: newUser, avatarUrl }];
-        } else {
-          return currentList;
-        }
-      });
-    });
-
     // USUÁRIOS SAÍRAM
     newSocket.on('userLeft', (leftUser) => {
       setUserList((currentList) => currentList.filter(user => user !== leftUser));
@@ -58,7 +46,6 @@ function Sala() {
 
     return () => {
       newSocket.off('recebendoMsg'); // MSG
-      newSocket.off('userJoined'); // ENTRAR
       newSocket.off('userLeft'); // USUÁRIOS SAÍRAM
       newSocket.off('updateUserList'); // ATUALIZAR LISTA DE USUÁRIOS
       newSocket.disconnect(); // SAIR
@@ -70,12 +57,6 @@ function Sala() {
     if (!message.trim()) return;
     socket.emit('newMessage', message); //mandar msg SERVER
   };
-
-  // SAIR
-  const handleLeaveRoom = (event) => {   
-    event.preventDefault();
-    console.log("Saindo da sala...");
-  }; 
 
   return (
     <>
