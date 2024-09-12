@@ -42,7 +42,10 @@ div.personagem{
     letter-spacing: 10px;
     color: var(--cor4);
 }
-  
+
+a {
+    text-decoration: none;
+}
   
   
 /* CAIXA VERMELHA */
