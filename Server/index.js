@@ -39,12 +39,9 @@ io.on('connection', (socket) => {
   // NOVO USUÁRIO
   socket.on('newUser', (username) => {
     socket.data.username = username;
-    
-    if (!users.includes(username)) {
-      users.push(username); // Adiciona novo usuário à lista
-      io.emit('updateUserList', users); // Envia a lista de usuários para todos
-      socket.broadcast.emit('userJoined', username); // Informa a outros que um novo usuário entrou
-    }
+    users.push(username); // ADD novo usuário à lista
+    io.emit('updateUserList', users); // Enviando lista
+    socket.broadcast.emit('userJoined', username); // Enviando usuário
   });
   
   // MSG
