@@ -39,11 +39,14 @@ io.on('connection', (socket) => {
   // NOVO USUÁRIO
   socket.on('newUser', (username) => {
     socket.data.username = username;
-    users.push(username); // ADD novo usuário à lista
-    io.emit('updateUserList', users); // Enviando lista
-    socket.broadcast.emit('userJoined', username); // Enviando usuário
+    
+    if (!users.includes(username)) {
+      users.push(username); // Adiciona novo usuário à lista
+      io.emit('updateUserList', users); // Envia a lista de usuários para todos
+      socket.broadcast.emit('userJoined', username); // Informa a outros que um novo usuário entrou
+    }
   });
-
+  
   // MSG
   socket.on('newMessage', (txt) => {
     io.emit('recebendoMsg', {

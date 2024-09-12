@@ -37,12 +37,12 @@ function Sala() {
     // NOVOS USUÁRIOS
     newSocket.on('userJoined', (newUser) => {
       setUserList((currentList) => {
-        if (!currentList.includes(newUser)) {
-          // Gerar URL de avatar aleatória usando RoboHash ou outro serviço
+        if (!currentList.some(user => user.username === newUser)) {
           const avatarUrl = `https://picsum.photos/seed/${newUser}/50`;
           return [...currentList, { username: newUser, avatarUrl }];
+        } else {
+          return currentList;
         }
-        return currentList;
       });
     });
 
