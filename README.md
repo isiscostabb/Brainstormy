@@ -18,31 +18,6 @@ Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personag
 1. Clone este repositório com `git clone` ou baixe o código-fonte.
 2. Digite no terminal dps de instalar: `npm install`
 
-## 🚀 Execução:
-(abre terminal)
-
-cd Cliente
-
-cd Brainstormy
-
-npm install
-
-npm install react-router-dom
-
-npm run dev
-
-(manter aberto o terminal anterior e abrir outro ao lado)
-
-cd Server
-
-npm init - y
-
-npm i express socket.io
-
-npm run dev
-
-(com os dois terminais abertos, abrir o link que aparece no terminal do cd Cliente)
-
 ## 🎯 Público-alvo:
 Estudantes e estusiastas que queiram práticar seu conhecimento em história, tendo como objetivo, saber seu nível de acertividade sobre assuntos históricos.
 
