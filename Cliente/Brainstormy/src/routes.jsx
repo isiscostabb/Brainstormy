@@ -1,6 +1,7 @@
 
 import Sala from "./Sala";
 import Lobby from "./Lobby";
+import Criacao from "./Criacao";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -24,6 +25,16 @@ const routes = createBrowserRouter([
     </>
     ),
   },
+
+    //CRIACAO
+    {
+      path: "/Criacao",
+      element: (
+      <>
+        <Criacao />
+      </>
+      ),
+    },
 ]);
 
 export default routes;
