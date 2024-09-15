@@ -26,23 +26,22 @@ function Perguntas() {
 
           <div className='caixaDados'>
 
-            <h1 className='h1Dados'>CRIAÇÃO DAS PERGUNTAS</h1>
+            <h1 className='h1Pergunta'>PERGUNTA 1</h1>
 
             <Conteiner largura={'90%'} direcao={'column'}>
-                <h2 className='h2Login'>PERGUNTA 1:</h2>
-                <input type="text" className='inputLogin'/>
+                <input type="text" className='inputLogin' id='pergunta'/>
 
                 <h2 className='h2Login'>RESPOSTA CORRETA:</h2>
-                <input type="text" className='inputLogin'/>
+                <input type="text" className='inputLogin' id='respCorreta'/>
                 
                 <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
-                <input type="text" className='inputLogin'/>
+                <input type="text" className='inputLogin' id='respIncorreta'/>
 
                 <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
-                <input type="text" className='inputLogin'/>
+                <input type="text" className='inputLogin' id='respIncorreta'/>
 
                 <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
-                <input type="text" className='inputLogin'/>
+                <input type="text" className='inputLogin' id='respIncorreta'/>
             </Conteiner>
 
           </div>

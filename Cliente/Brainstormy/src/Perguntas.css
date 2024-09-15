@@ -20,3 +20,12 @@
     border-radius: 10px;
     z-index: 2;
 }
+
+.h1Pergunta{
+    color: var(--cor0);
+    font-size: 50px;
+}
+
+#pergunta{
+    background-color: var(--cor0);
+}
