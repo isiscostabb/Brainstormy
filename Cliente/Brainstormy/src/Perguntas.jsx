@@ -11,36 +11,41 @@ function Perguntas() {
         <Conteiner altura={'100vh'} largura={'100vw'}>
 
           {/* SAIR */}
-          <Link to="/Criacao">
+          <Link to="/Dados">
             <button type="submit" className='sair'>
               <p>Voltar</p>
             </button>
           </Link>
 
-          <div className='caixaPerguntas'>
+          {/* PROX */}
+          <Link to="/Perguntas">
+            <button type="submit" className='proximo'>
+              <p>Próximo</p>
+            </button>
+          </Link>
 
-            <Conteiner altura={'30%'} largura={'90%'} direcao={'column'}>
-              <h1 className='h1Perguntas'>BEM-VINDO PROFESSOR,</h1>
-              <h1 className='h1Perguntas'>VAMOS INICIAR A CRIAÇÃO DAS PERGUNTAS!</h1>
-              <h2 className='h2Perguntas'>deverão ser criadas ao todo 10 perguntas, 3 alternativas erradas e 1 alternativa correta</h2>
-            </Conteiner>
+          <div className='caixaDados'>
 
-            <Conteiner altura={'50%'} largura={'90%'} direcao={'column'}>
-              <h2 className='h2Criacao'>VAMOS COMEÇAR DEFININDO UM NOME PARA SALA:</h2>
-              <p className='pPerguntas'>será o código que os alunos deverão inserir para jogar na sala</p>
-              <input type="number" className='inputCriacao'/>
-              <h2 className='h2Criacao'>AGORA NOS CONTE QUAL SERÁ O TEMA DO QUIZ:</h2>
-              <p className='pPerguntas'>sobre qual assunto/conteúdo irão se tratar as perguntas?</p>
-              <input type="text" className='inputCriacao'/>
-            </Conteiner>
+            <h1 className='h1Dados'>CRIAÇÃO DAS PERGUNTAS</h1>
 
-            <Conteiner altura={'20%'} largura={'90%'} direcao={'column'}>
-              <h2 className='h2Perguntas'>TUDO CERTO? AGORA VAMOS PROSSEGUIR PARA A PRÓXIMA ETAPA</h2>
-              <button className='seguir'><h2>CRIAR SUAS PERGUNTAS</h2></button>
+            <Conteiner largura={'90%'} direcao={'column'}>
+                <h2 className='h2Login'>PERGUNTA 1:</h2>
+                <input type="text" className='inputLogin'/>
+
+                <h2 className='h2Login'>RESPOSTA CORRETA:</h2>
+                <input type="text" className='inputLogin'/>
+                
+                <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
+                <input type="text" className='inputLogin'/>
+
+                <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
+                <input type="text" className='inputLogin'/>
+
+                <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
+                <input type="text" className='inputLogin'/>
             </Conteiner>
 
           </div>
-
 
         </Conteiner>
     </>

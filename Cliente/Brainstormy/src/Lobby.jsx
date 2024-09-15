@@ -52,7 +52,7 @@ function Lobby() {
                 <Link to="/Sala"> {/* entrar */}
                   <button className="lobby jogar" onClick={()=>{handleSubmit()}}><h2 className='txtButton'>JOGAR AGORA</h2></button>
                 </Link>
-                <Link to="/Criacao">
+                <Link to="/Login">
                   <button className="lobby criar"><h2 className='txtButton'>CRIAR SUA SALA</h2></button>
                 </Link>
             </div>

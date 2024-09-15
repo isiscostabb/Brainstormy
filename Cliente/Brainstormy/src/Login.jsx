@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import Conteiner from './Componentes/Conteiner';
 
-import './Criacao.css';
+import './Login.css';
 
-function Criacao() {
+function Login() {
 
   return (
     <>
@@ -18,23 +18,23 @@ function Criacao() {
             </button>
           </Link>
 
-            <div className='caixa'>
+            <div className='caixaLogin'>
 
                 <Conteiner altura={'30%'} largura={'90%'} direcao={'column'}>
-                  <h1 className='h1Criacao'>CRIAR UMA SALA</h1>
+                  <h1 className='h1Login'>CRIAR UMA SALA</h1>
                   <p>login disponivel apenas para professores</p>
                 </Conteiner>
 
                 <Conteiner altura={'50%'} largura={'90%'} direcao={'column'}>
-                  <h2 className='h2Criacao'>USUÁRIO:</h2>
-                  <input type="text" className='inputCriacao'/>
+                  <h2 className='h2Login'>USUÁRIO:</h2>
+                  <input type="text" className='inputLogin'/>
 
-                  <h2 className='h2Criacao'>SENHA:</h2>
-                  <input type="password" className='inputCriacao'/>
+                  <h2 className='h2Login'>SENHA:</h2>
+                  <input type="password" className='inputLogin'/>
                 </Conteiner>
 
                 <Conteiner altura={'20%'} largura={'90%'}>
-                  <Link to="/Perguntas">
+                  <Link to="/Dados">
                     <button className='entrar'><h2>ENTRAR</h2></button>
                   </Link>
                 </Conteiner>
@@ -45,5 +45,5 @@ function Criacao() {
   );
 }
 
-export default Criacao;
+export default Login;
 

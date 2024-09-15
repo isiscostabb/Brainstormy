@@ -1,5 +1,5 @@
 
-.caixa{
+.caixaLogin{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11,18 +11,18 @@
     background-color: var(--cor2);
 }
 
-.h1Criacao{
+.h1Login{
   font-size: 60px;
   color: var(--cor1);
 }
 
-.h2Criacao{
+.h2Login{
   color: var(--cor0);
   align-self: flex-start;
   padding-left: 20px;
 }
 
-.inputCriacao{
+.inputLogin{
   position: relative;
   padding-left: 10px;
   border-radius: 20px;

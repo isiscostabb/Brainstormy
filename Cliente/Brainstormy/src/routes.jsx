@@ -1,8 +1,9 @@
 
 import Sala from "./Sala";
 import Lobby from "./Lobby";
-import Criacao from "./Criacao";
-import Perguntas from "./Perguntas"; 
+import Login from "./Login";
+import Dados from "./Dados"; 
+import Perguntas from "./Perguntas";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -27,16 +28,27 @@ const routes = createBrowserRouter([
     ),
   },
 
-    //CRIACAO
+    //LOGIN
     {
-      path: "/Criacao",
+      path: "/Login",
       element: (
       <>
-        <Criacao />
+        <Login />
       </>
       ),
     },
 
+    //DADOS
+    {
+      path: "/Dados",
+      element: (
+      <>
+        <Dados />
+      </>
+      ),
+    },
+
+    
     //PERGUNTAS
     {
       path: "/Perguntas",

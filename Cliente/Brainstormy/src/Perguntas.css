@@ -8,43 +8,15 @@
     --cor5: #ffffff;
 }
 
-.caixaPerguntas{
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  height: 85%;
-  background-color: var(--cor2);
-  border-radius: 20px;
-}
-
-.h1Perguntas{
-  color: var(--cor1);
-  font-size: 45px;
-}
-
-.h2Perguntas{
-  color: var(--cor0);
-  font-size: 20px;
-}
-
-.pPerguntas{
-  align-self: flex-start;
-  margin-left: 20px;
-}
-
-.seguir{
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 20px;
-  border: none;
-  width: 40%;
-  height: 30%;
-  margin: 20px 0px;
-  background-color: var(--cor0);
+.proximo{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background-color: var(--cor2);
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    z-index: 2;
 }
