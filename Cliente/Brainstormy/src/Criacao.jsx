@@ -21,12 +21,20 @@ function Criacao() {
             <div className='caixa'>
 
                 <Conteiner altura={'30%'} largura={'90%'} direcao={'column'}>
+                  <h1 className='h1Criacao'>CRIAR UMA SALA</h1>
+                  <p>login disponivel apenas para professores</p>
                 </Conteiner>
 
                 <Conteiner altura={'50%'} largura={'90%'} direcao={'column'}>
+                  <h2 className='h2Criacao'>USUÁRIO:</h2>
+                  <input type="text" className='inputCriacao'/>
+
+                  <h2 className='h2Criacao'>SENHA:</h2>
+                  <input type="password" className='inputCriacao'/>
                 </Conteiner>
 
                 <Conteiner altura={'20%'} largura={'90%'}>
+                  <button className='entrar'>ENTRAR</button>
                 </Conteiner>
             </div>
 

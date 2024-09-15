@@ -28,7 +28,8 @@ function Lobby() {
 
   return (
     <>
-        <div className="personagem"> </div>
+      <div className="personagem"> </div>
+
 
         <Conteiner largura={'100vw'} altura={'100%'} direcao={'column'}>
           <div className="textoLobby">

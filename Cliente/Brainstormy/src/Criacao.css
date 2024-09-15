@@ -1,13 +1,60 @@
 
+:root{
+    --cor0: #B8B6AB;
+    --cor1: #9E896F; 
+    --cor2: #652224;
+    --cor3: #362E24;
+    --cor4: #0D0D0D;
+    --cor5: #ffffff;
+  }
+  
+
 .caixa{
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    height: 80%;
-    background-color: var(--cor2);
+    width: 45%;
+    height: 55%;
     border-radius: 20px;
+    background-color: var(--cor2);
 }
 
+.h1Criacao{
+  font-size: 60px;
+  color: var(--cor1);
+}
+
+.h2Criacao{
+  color: var(--cor0);
+  align-self: flex-start;
+  padding-left: 20px;
+}
+
+.inputCriacao{
+  position: relative;
+  padding-left: 10px;
+  border-radius: 20px;
+  border: none;
+  width: 100%;
+  height: 50px;
+  margin: 20px 0px;
+  background-color: var(--cor1);
+  outline: none;
+}
+
+.entrar{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 40%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--cor0);
+  font-family: 'font2';
+  font-size: 20px;
+}
