@@ -77,12 +77,6 @@ a {
     height: 100%;
 }
   
-input[type=text]{
-    color: var(--cor2);
-    font-family: 'font2';
-    font-size: 20px;
-}
-  
 .inputTxt{
     font-family: 'font2';
     font-size: 25px;

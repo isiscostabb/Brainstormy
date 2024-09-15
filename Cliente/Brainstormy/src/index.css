@@ -54,3 +54,21 @@ p{
   font-family: 'font1';
   color: var(--cor0);
 }
+
+input[type=text]{
+  color: var(--cor2);
+  font-family: 'font2';
+  font-size: 20px;
+}
+
+input[type=number]{
+  color: var(--cor2);
+  font-family: 'font2';
+  font-size: 20px;
+}
+
+input[type=password]{
+  color: var(--cor2);
+  font-family: 'font2';
+  font-size: 20px;
+}

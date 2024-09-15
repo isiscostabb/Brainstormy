@@ -28,7 +28,7 @@ function Perguntas() {
             <Conteiner altura={'50%'} largura={'90%'} direcao={'column'}>
               <h2 className='h2Criacao'>VAMOS COMEÇAR DEFININDO UM NOME PARA SALA:</h2>
               <p className='pPerguntas'>será o código que os alunos deverão inserir para jogar na sala</p>
-              <input type="text" className='inputCriacao'/>
+              <input type="number" className='inputCriacao'/>
               <h2 className='h2Criacao'>AGORA NOS CONTE QUAL SERÁ O TEMA DO QUIZ:</h2>
               <p className='pPerguntas'>sobre qual assunto/conteúdo irão se tratar as perguntas?</p>
               <input type="text" className='inputCriacao'/>
