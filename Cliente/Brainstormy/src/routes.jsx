@@ -2,6 +2,7 @@
 import Sala from "./Sala";
 import Lobby from "./Lobby";
 import Criacao from "./Criacao";
+import Perguntas from "./Perguntas"; 
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -32,6 +33,16 @@ const routes = createBrowserRouter([
       element: (
       <>
         <Criacao />
+      </>
+      ),
+    },
+
+    //PERGUNTAS
+    {
+      path: "/Perguntas",
+      element: (
+      <>
+        <Perguntas />
       </>
       ),
     },

@@ -34,7 +34,9 @@ function Criacao() {
                 </Conteiner>
 
                 <Conteiner altura={'20%'} largura={'90%'}>
-                  <button className='entrar'>ENTRAR</button>
+                  <Link to="/Perguntas">
+                    <button className='entrar'><h2>ENTRAR</h2></button>
+                  </Link>
                 </Conteiner>
             </div>
 

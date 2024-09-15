@@ -1,14 +1,4 @@
 
-:root{
-    --cor0: #B8B6AB;
-    --cor1: #9E896F; 
-    --cor2: #652224;
-    --cor3: #362E24;
-    --cor4: #0D0D0D;
-    --cor5: #ffffff;
-  }
-  
-
 .caixa{
     position: relative;
     display: flex;
@@ -50,7 +40,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 40%;
+  width: 350px;
   height: 40px;
   border-radius: 20px;
   border: none;
