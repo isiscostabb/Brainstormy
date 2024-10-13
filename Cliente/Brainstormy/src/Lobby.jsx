@@ -17,6 +17,7 @@ function Lobby() {
   const usernameRef = useRef()
   const navigate = useNavigate();
 
+
   const handleSubmit = async() => {
     const username = usernameRef.current.value
     if (!username.trim()) return
