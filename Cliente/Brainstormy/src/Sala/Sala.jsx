@@ -3,10 +3,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
-import Conteiner from './Componentes/Conteiner';
-import Podio from './Componentes/Sala/Podio';
-import Temporizador from './Componentes/Sala/Temporizador';
-import Chat from './Componentes/Sala/Chat'; // Importa o novo componente Chat
+import Conteiner from '../Conteiner';
+import Podio from './Podio';
+import Temporizador from './Temporizador';
+import Chat from './Chat'; // Importa o novo componente Chat
 import './Sala.css';
 
 function Sala() {
@@ -79,17 +79,17 @@ function Sala() {
           {/* PERGUNTAS */}
           <Conteiner largura={'100%'} altura={'52vh'}>
             <div className='pergunta'>
-              <h2 className='perguntaTxt'>Por quanto tempo Napoleão governou a França?</h2>
+              <h2 className='perguntaTxt' id='pergunta'>?</h2>
             
               <div className='opcoesResposta'>
                 <div className='linha'>
-                  <div className='opcao'><p className='opcaoTxt'>10 anos</p></div>
-                  <div className='opcao'><p className='opcaoTxt'>20 anos</p></div>
+                  <div className='opcao' id='respCorreta'><p className='opcaoTxt'>1</p></div>
+                  <div className='opcao' id='respIncorreta1'><p className='opcaoTxt'>2</p></div>
                 </div>
 
                 <div className='linha'>
-                  <div className='opcao'><p className='opcaoTxt'>30 anos</p></div>
-                  <div className='opcao'><p className='opcaoTxt'>40 anos</p></div>
+                  <div className='opcao' id='respIncorreta2'><p className='opcaoTxt'>3</p></div>
+                  <div className='opcao' ><p className='opcaoTxt'>4</p></div>
                 </div>
               </div>
               <p>O resultado aparece somente após o final da rodada</p>

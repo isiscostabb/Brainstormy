@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 
-import Conteiner from './Componentes/Conteiner';
+import Conteiner from '../Conteiner';
 
 import './Login.css';
 
@@ -46,4 +46,3 @@ function Login() {
 }
 
 export default Login;
-

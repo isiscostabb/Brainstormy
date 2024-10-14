@@ -6,7 +6,7 @@ import { useRef } from 'react';
 //Server
 import { io } from 'socket.io-client';
 
-import Conteiner from './Componentes/Conteiner';
+import Conteiner from '../Conteiner';
 import './Lobby.css';
 
 

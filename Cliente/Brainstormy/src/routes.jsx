@@ -1,13 +1,14 @@
 
-import Sala from "./Sala";
-import Lobby from "./Lobby";
-import Login from "./Login";
-import Dados from "./Dados"; 
-import Perguntas from "./Perguntas";
+import Sala from "./Sala/Sala";
+import Lobby from "./Lobby/Lobby";
+import Login from "./Professor/Login";
+import Dados from "./Professor/Dados"; 
+import CriarPergunta from "./Professor/CriarPergunta";
 
 import { createBrowserRouter } from "react-router-dom";
 
 const routes = createBrowserRouter([
+
   //LOBBY
   {
     path: "/",
@@ -49,12 +50,12 @@ const routes = createBrowserRouter([
     },
 
     
-    //PERGUNTAS
+    //CRIAR PERGUNTAS
     {
-      path: "/Perguntas",
+      path: "/CriarPergunta",
       element: (
       <>
-        <Perguntas />
+        <CriarPergunta />
       </>
       ),
     },

@@ -2,7 +2,7 @@
 /* PERSONAGEM */
 
 div.personagem{
-    background-image: url(assets/Imagens/personagem.gif);
+    background-image: url(/personagem.gif);
     height: 900px;
     width: 600px;
     position: absolute;
@@ -54,7 +54,7 @@ a {
     flex-direction: column;
     z-index: 1;
     border-radius: 20px;
-    background-image: url(assets/Imagens/caixaLobby.png);
+    background-image: url(/caixaLobby.png);
 }
   
   

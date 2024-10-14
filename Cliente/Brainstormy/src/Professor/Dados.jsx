@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import Conteiner from './Componentes/Conteiner';
+import Conteiner from '../Conteiner';
 
 import './Dados.css';
 
@@ -36,7 +36,7 @@ function Dados() {
 
             <Conteiner altura={'20%'} largura={'90%'} direcao={'column'}>
               <h2 className='h2Dados'>TUDO CERTO? AGORA VAMOS PROSSEGUIR PARA A PRÓXIMA ETAPA</h2>
-              <Link to={'/Perguntas'}><button className='seguir'><h2>CRIAR SUAS PERGUNTAS</h2></button></Link>
+              <Link to={'/CriarPergunta'}><button className='seguir'><h2>CRIAR SUAS PERGUNTAS</h2></button></Link>
             </Conteiner>
 
           </div>

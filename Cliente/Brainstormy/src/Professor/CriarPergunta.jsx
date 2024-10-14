@@ -1,10 +1,10 @@
 
 import { Link } from 'react-router-dom';
-import Conteiner from './Componentes/Conteiner';
+import Conteiner from '../Conteiner';
 
-import './Perguntas.css';
+import './CriarPergunta.css';
 
-function Perguntas() {
+function CriarPergunta() {
 
   return (
     <>
@@ -18,7 +18,7 @@ function Perguntas() {
           </Link>
 
           {/* PROX */}
-          <Link to="/Perguntas">
+          <Link to="/CriarPergunta">
             <button type="submit" className='proximo'>
               <p>Próximo</p>
             </button>
@@ -35,13 +35,13 @@ function Perguntas() {
                 <input type="text" className='inputLogin' id='respCorreta'/>
                 
                 <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
-                <input type="text" className='inputLogin' id='respIncorreta'/>
+                <input type="text" className='inputLogin' id='respIncorreta1'/>
 
                 <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
-                <input type="text" className='inputLogin' id='respIncorreta'/>
+                <input type="text" className='inputLogin' id='respIncorreta2'/>
 
                 <h2 className='h2Login'>RESPOSTA INCORRETA:</h2>
-                <input type="text" className='inputLogin' id='respIncorreta'/>
+                <input type="text" className='inputLogin' id='respIncorreta3'/>
             </Conteiner>
 
           </div>
@@ -51,4 +51,4 @@ function Perguntas() {
   );
 }
 
-export default Perguntas;
+export default CriarPergunta;
