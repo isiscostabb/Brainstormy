@@ -22,8 +22,3 @@ Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personag
 Estudantes e estusiastas que queiram práticar seu conhecimento em história, tendo como objetivo, saber seu nível de acertividade sobre assuntos históricos.
 
 ## 🔭 Demonstração do projeto:
-
-figma: https://www.figma.com/design/IYcyCOmWfgcPUc22fKrqoc/Untitled?node-id=0-1&t=D4qoLJbe5jh5b8wy-0
-
-
-
