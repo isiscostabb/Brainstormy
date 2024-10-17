@@ -16,8 +16,8 @@ const atualizarTemporizador = (io) => {
     }
     io.emit('statusPerguntaAtualizado', perguntaStatus); // Envia a atualização do status da pergunta para todos os clientes
 
-    // Reinicia o temporizador
-    tempoRestante = 12;
+    tempoRestante = 120; // Reinicia o temporizador
+
   }
 };
 
