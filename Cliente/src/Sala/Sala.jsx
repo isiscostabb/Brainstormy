@@ -11,58 +11,47 @@ import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
-
   const location = useLocation();
   const username = location.state?.username || 'Usuário';
-
-  //----------------------------------------
-
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
   const [userList, setUserList] = useState([username]);
+  const [statusPergunta, setStatusPergunta] = useState(1);
 
   useEffect(() => {
-
-    // Criar a conexão socket
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
 
-    newSocket.emit('newUser', username); //mandar nome usuário SERVER
+    newSocket.emit('newUser', username);
 
-    // MSG
     newSocket.on('recebendoMsg', (data) => {  
       setMessageList((current) => [...current, data]);
     });
 
-    // USUÁRIOS SAÍRAM
     newSocket.on('userLeft', (leftUser) => {
       setUserList((currentList) => currentList.filter(user => user !== leftUser));
     });
 
-    // ATUALIZAR LISTA DE USUÁRIOS
     newSocket.on('updateUserList', (userList) => {
       setUserList(userList.map(user => ({ username: user, avatarUrl: `https://picsum.photos/seed/${user}/50` })));
     });
 
     return () => {
-      newSocket.off('recebendoMsg'); // MSG
-      newSocket.off('userLeft'); // USUÁRIOS SAÍRAM
-      newSocket.off('updateUserList'); // ATUALIZAR LISTA DE USUÁRIOS
-      newSocket.disconnect(); // SAIR
+      newSocket.off('recebendoMsg');
+      newSocket.off('userLeft');
+      newSocket.off('updateUserList');
+      newSocket.disconnect();
     };
   }, [username]);
 
-  // FUNÇÃO MSG
   const handleSubmit = (message) => {
     if (!message.trim()) return;
-    socket.emit('newMessage', message); //mandar msg SERVER
+    socket.emit('newMessage', message);
   };
 
   return (
     <>
       <Conteiner largura={'100vw'} altura={'100vh'}>
-          
-        {/* PODIO */}
         <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
           <h1 className='h1Sala'>PÓDIO</h1>
           <div className='podio'>
@@ -70,19 +59,15 @@ function Sala() {
               <Podio key={index} username={user.username} avatarUrl={user.avatarUrl} isOwnUser={user.username === username} />
             ))}
           </div>
-        </Conteiner >
+        </Conteiner>
 
-        {/* LADO DIREITO */}
         <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
+          <Temporizador onStatusPerguntaChange={setStatusPergunta} /> {/* Passa a função para atualizar statusPergunta */}
 
-          <Temporizador/>
-
-          {/* PERGUNTAS */}
           <Conteiner largura={'100%'} altura={'52vh'}>
-            <Perguntas/>
+            <Perguntas statusPergunta={statusPergunta} /> {/* Passa statusPergunta como prop */}
           </Conteiner>
 
-          {/* CHAT */}
           <Conteiner largura={'100%'} altura={'40vh'}>
             <Chat
               messageList={messageList}
@@ -91,13 +76,11 @@ function Sala() {
             />
           </Conteiner>
 
-          {/* SAIR */}
           <Link to="/">
             <button type="submit" className='sair' onClick={() => handleLeaveRoom()}>
               <p>Sair da Sala</p>
             </button>
           </Link>
-
         </Conteiner>
       </Conteiner>
     </>

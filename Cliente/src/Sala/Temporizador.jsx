@@ -3,29 +3,27 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import './Temporizador.css';
 
-const socket = io('http://localhost:3001'); 
+const socket = io('http://localhost:3001');
 
-const Contador = () => {
-  const [tempo, setTempo] = useState(120); // 120 segundos = 2 minutos
-  const [statusPergunta, setStatusPergunta] = useState(1); // Status inicial da pergunta
+const Contador = ({ onStatusPerguntaChange }) => {
+  const [tempo, setTempo] = useState(120);
+  const [statusPergunta, setStatusPergunta] = useState(1);
 
   useEffect(() => {
-    // Listener para o evento 'tempoAtualizado'
     socket.on('tempoAtualizado', (novoTempo) => {
       setTempo(novoTempo);
     });
 
-    // Listener para o evento 'statusPerguntaAtualizado'
     socket.on('statusPerguntaAtualizado', (novoStatusPergunta) => {
       setStatusPergunta(novoStatusPergunta);
+      onStatusPerguntaChange(novoStatusPergunta);
     });
 
-    // Limpeza dos listeners ao desmontar o componente
     return () => {
       socket.off('tempoAtualizado');
       socket.off('statusPerguntaAtualizado');
     };
-  }, []);
+  }, [onStatusPerguntaChange]);
 
   const formatarTempo = (segundos) => {
     const minutos = Math.floor(segundos / 60);
@@ -36,11 +34,10 @@ const Contador = () => {
   return (
     <div className='conteinerTop'>
       <div className='bloco'>
-        <p className='tempo'>TEMPO RESTANTE: {formatarTempo(tempo)}</p> {/* temporizador */}
+        <p className='tempo'>TEMPO RESTANTE: {formatarTempo(tempo)}</p>
       </div>
-
       <div className='bloco'>
-        <p>PERGUNTA {statusPergunta}/10</p> {/* status perguntas */}
+        <p>PERGUNTA {statusPergunta}/10</p>
       </div>
     </div>
   );
