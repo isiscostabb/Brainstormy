@@ -1,4 +1,4 @@
-# <img src="https://github.com/isiscostabb/Brainstormy/blob/main/Cliente/Brainstormy/public/Logo.png" width="55" height="55"> Projeto Integrador: Sistemas Web!
+# <img src="https://github.com/isiscostabb/Brainstormy/blob/main/Cliente/public/Logo.png" width="55" height="55"> Projeto Integrador: Sistemas Web!
 Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personagens e assuntos escolares.
 
 ## 👷🏽 Desenvolvedores:
