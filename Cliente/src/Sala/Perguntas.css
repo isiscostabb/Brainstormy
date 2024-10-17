@@ -1,0 +1,51 @@
+
+.pergunta{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    border-radius: 20px;
+    background-color: var(--cor2);
+}
+
+.perguntaTxt{
+    color:  var(--cor5);
+    margin: 30px 0px;
+}
+
+.opcoesResposta{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 70%;
+}
+
+.linha{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100px;
+}
+
+.opcao{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 100px;
+    background-color: var(--cor5);
+    border-radius: 20px;  
+    cursor: pointer;
+}
+
+.opcaoTxt{
+    font-family: 'font2';
+    font-size: 30px;
+    color: var(--cor2);
+}
