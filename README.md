@@ -1,4 +1,4 @@
-# <img src="https://github.com/isiscostabb/Brainstormy/blob/main/Cliente/Brainstormy/public/Logo.png" width="55" height="55"> Projeto Integrador: Sistemas Web!
+# <img src="https://github.com/isiscostabb/Brainstormy/blob/main/Cliente/public/Logo.png" width="55" height="55"> Projeto Integrador: Sistemas Web!
 Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personagens e assuntos escolares.
 
 ## 👷🏽 Desenvolvedores:
@@ -22,8 +22,3 @@ Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personag
 Estudantes e estusiastas que queiram práticar seu conhecimento em história, tendo como objetivo, saber seu nível de acertividade sobre assuntos históricos.
 
 ## 🔭 Demonstração do projeto:
-
-figma: https://www.figma.com/design/IYcyCOmWfgcPUc22fKrqoc/Untitled?node-id=0-1&t=D4qoLJbe5jh5b8wy-0
-
-
-
