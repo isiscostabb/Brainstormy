@@ -13,7 +13,6 @@ import './Lobby.css';
 function Lobby() {
 
   //nome usuário
-  
   const usernameRef = useRef()
   const navigate = useNavigate();
 
@@ -45,7 +44,7 @@ function Lobby() {
               </div>
               <div className="input dois">
                 <p className="inputTxt cod">INSIRA O CÓDIGO DA SALA:</p>
-                <input type="text" className="inputCod"/>
+                <input type="number" className="inputCod"/>
               </div>
             </div>
 
