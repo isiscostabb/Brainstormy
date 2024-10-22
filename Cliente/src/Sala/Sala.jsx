@@ -1,8 +1,6 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
-
 import Conteiner from '../Conteiner';
 import Podio from './Podio';
 import Temporizador from './Temporizador';
@@ -11,8 +9,11 @@ import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
+
   const location = useLocation();
   const username = location.state?.username || 'Usuário';
+  const roomCode = location.state?.roomCode;
+
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
   const [userList, setUserList] = useState([username]);
@@ -21,7 +22,6 @@ function Sala() {
   useEffect(() => {
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
-
     newSocket.emit('newUser', username);
 
     newSocket.on('recebendoMsg', (data) => {  
@@ -62,12 +62,10 @@ function Sala() {
         </Conteiner>
 
         <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
-          <Temporizador onStatusPerguntaChange={setStatusPergunta} /> {/* Passa a função para atualizar statusPergunta */}
-
+          <Temporizador onStatusPerguntaChange={setStatusPergunta} />
           <Conteiner largura={'100%'} altura={'52vh'}>
-            <Perguntas statusPergunta={statusPergunta} /> {/* Passa statusPergunta como prop */}
+            <Perguntas statusPergunta={statusPergunta} roomCode={roomCode} />
           </Conteiner>
-
           <Conteiner largura={'100%'} altura={'40vh'}>
             <Chat
               messageList={messageList}
@@ -75,7 +73,6 @@ function Sala() {
               handleSubmit={handleSubmit}
             />
           </Conteiner>
-
           <Link to="/">
             <button type="submit" className='sair' onClick={() => handleLeaveRoom()}>
               <p>Sair da Sala</p>

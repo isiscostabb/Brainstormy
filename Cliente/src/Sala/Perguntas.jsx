@@ -3,19 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { tabelaPerguntas } from '../../../Server/Database/tabelaPerguntas.js';
 import './Perguntas.css';
 
-function Perguntas({ statusPergunta }) { 
-
+function Perguntas({ statusPergunta, roomCode }) {  
   const [perguntaData, setPerguntaData] = useState(null);
 
   useEffect(() => {
     async function fetchPergunta() {
-      const data = await tabelaPerguntas();
+      const data = await tabelaPerguntas(roomCode);
       if (data && data.length > 0) {
-        setPerguntaData(data[statusPergunta -1]); // Utiliza o statusPergunta como índice
+        setPerguntaData(data[statusPergunta - 1]);
       }
     }
     fetchPergunta();
-  }, [statusPergunta]); // Atualiza quando statusPergunta muda
+  }, [statusPergunta, roomCode]); // Atualiza quando statusPergunta ou roomCode muda
 
   if (!perguntaData) {
     return <p>Carregando...</p>;
