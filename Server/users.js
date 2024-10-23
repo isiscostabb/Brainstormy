@@ -1,5 +1,5 @@
 
-// Função para lidar com um novo usuário
+// Novo usuário
 const handleNewUser = (socket, username, users, io) => {
     socket.data.username = username; // Armazena o nome de usuário no socket
     users.push(username); // Adiciona o usuário ao array
@@ -7,7 +7,7 @@ const handleNewUser = (socket, username, users, io) => {
     socket.broadcast.emit('userJoined', username); // Informa aos outros usuários que um novo usuário entrou
   };
   
-  // Função para lidar com a desconexão de um usuário
+  // Desconexão usuário
   const handleUserDisconnect = (socket, users, io) => {
     if (socket.data.username) {
       users.splice(users.indexOf(socket.data.username), 1); // Remove o usuário da lista

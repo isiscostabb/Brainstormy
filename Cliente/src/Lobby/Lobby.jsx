@@ -2,7 +2,10 @@
 import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+
+import { tabelaJogadores } from '../../../Server/Database/tabelaJogadores';  
 import Conteiner from '../Conteiner';
+
 import './Lobby.css';
 
 function Lobby() {
@@ -15,9 +18,20 @@ function Lobby() {
     const roomCode = roomCodeRef.current.value; 
     if (!username.trim() || !roomCode) return; // Verifica se ambos os campos foram preenchidos
 
+    // Conecta ao WebSocket
     const socket = await io.connect('http://localhost:3001');
     socket.emit('newUser', username); // Manda nome do usuário para o Server
 
+    // Chama a função que insere o jogador no banco de dados
+    const resultado = await tabelaJogadores(roomCode, username);
+    if (resultado) {
+      console.log('Jogador inserido no banco:', resultado);
+    } else {
+      console.error('Erro ao inserir jogador no banco');
+      return;
+    }
+
+    // Navega para a sala com os dados
     navigate('/Sala', { state: { username, roomCode } }); // Manda código da sala + nome do usuário p/ Sala.jsx
   }
 

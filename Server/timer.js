@@ -1,5 +1,5 @@
 
-let tempoRestante = 12; // Tempo inicial (seg)
+let tempoRestante = 120; // Tempo inicial (seg)
 let temporizadorAtivo = false;
 let perguntaStatus = 1; // Status inicial da pergunta
 

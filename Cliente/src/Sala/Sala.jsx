@@ -1,11 +1,14 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
+
 import Conteiner from '../Conteiner';
 import Podio from './Podio';
 import Temporizador from './Temporizador';
 import Chat from './Chat'; 
 import Perguntas from './Perguntas';
+
 import './Sala.css';
 
 function Sala() {
