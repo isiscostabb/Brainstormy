@@ -44,6 +44,11 @@
     cursor: pointer;
 }
 
+.opcao:hover{
+    transition: .4s;
+    background-color: var(--cor3);
+}
+
 .opcaoTxt{
     font-family: 'font2';
     font-size: 30px;

@@ -24,11 +24,14 @@ function Lobby() {
   return (
     <>
       <div className="personagem"> </div>
+
       <Conteiner largura={'100vw'} altura={'100%'} direcao={'column'}>
+
         <div className="textoLobby">
           <h1 className="h1Lobby">BRAINSTORMY</h1>
           <p className="pLobby">o seu jogo de história</p>
         </div>
+
         <div className="caixaLobby">
           <div className="inputLobby">
             <div className="input um">
@@ -40,6 +43,7 @@ function Lobby() {
               <input type="number" className="inputCod" ref={roomCodeRef} />
             </div>
           </div>
+          
           <div className="botoesLobby">
             <Link to="/Sala">
               <button className="lobby jogar" onClick={handleSubmit}><h2 className='txtButton'>JOGAR AGORA</h2></button>
@@ -49,6 +53,7 @@ function Lobby() {
             </Link>
           </div>
         </div>
+
       </Conteiner>
     </>
   );

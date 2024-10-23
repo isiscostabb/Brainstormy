@@ -22,26 +22,30 @@ function Perguntas({ statusPergunta, roomCode }) {
 
   return (
     <div className='pergunta'>
+
       <h2 className='perguntaTxt'>{perguntaData.pergunta}</h2>
       <div className='opcoesResposta'>
+
         <div className='linha'>
-          <div className='opcao'>
+          <button className='opcao'>
             <p className='opcaoTxt'>{perguntaData.respCorreta}</p> 
-          </div>
-          <div className='opcao'>
+          </button>
+          <button className='opcao'>
             <p className='opcaoTxt'>{perguntaData.respIncorreta1}</p>
-          </div>
+          </button>
         </div>
+
         <div className='linha'>
-          <div className='opcao'>
+          <button className='opcao'>
             <p className='opcaoTxt'>{perguntaData.respIncorreta2}</p>
-          </div>
-          <div className='opcao'>
+          </button>
+          <button className='opcao'>
             <p className='opcaoTxt'>{perguntaData.respIncorreta3}</p>
-          </div>
+          </button>
         </div>
       </div>
       <p>O resultado aparece somente após o final da rodada</p>
+
     </div>
   );
 }

@@ -46,6 +46,17 @@
     font-size: 14px;   
 }
 
+.pFuncao{
+    cursor: pointer;
+    color: var(--cor2);
+    transition: .2s;
+}
+
+.pFuncao:hover{
+    transition: .2s;
+    color: var(--cor0);
+}
+
 /* FUNCAO */
 .funcao{
     background-color: var(--cor2);

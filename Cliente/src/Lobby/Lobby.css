@@ -144,7 +144,7 @@ button.lobby{
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 2px 2px 5px var(--cor3);
+    box-shadow: 2px 2px 5px var(--cor4);
 }
   
 button.lobby:hover{

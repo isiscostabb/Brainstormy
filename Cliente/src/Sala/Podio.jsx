@@ -19,7 +19,9 @@ function Podio({ username, isOwnUser, avatarUrl  }) {
         </div>
 
         <Conteiner largura={'30%'} altura={'100%'}>
-          <div className='funcao'></div> {/* lógica p/ funções */}
+          <div className='funcao'>
+            <p className='pFuncao'>CIDADÃO</p>  {/* lao clicar aparecer um texto explicando as 2 funçoes */}
+          </div> {/* lógica p/ funções */}
         </Conteiner>
       </Conteiner>
     </>
