@@ -3,14 +3,12 @@ import React from 'react';
 import Conteiner from '../Conteiner';
 import './Podio.css';
 
-function Podio({ username, isOwnUser, avatarUrl, score }) { // Adicionando a prop score
+function Podio({ username, isOwnUser, score }) {
   return (
     <>
       <Conteiner largura={'100%'} altura={'100px'}>
         <Conteiner largura={'20%'} altura={'100%'}>
-          <div className='avatar'>
-            <img src={avatarUrl} alt="avatar" className="avatarImg" /> {/* avatar */}
-          </div> 
+          <div className='avatar'></div> 
         </Conteiner>
 
         <div className='podioMeio'>

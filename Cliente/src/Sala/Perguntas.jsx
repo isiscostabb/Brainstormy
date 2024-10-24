@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { tabelaPerguntas } from '../../../Server/Database/tabelaPerguntas.js';
 import './Perguntas.css';
 
-function Perguntas({ statusPergunta, roomCode }) {  
+function Perguntas({ statusPergunta, roomCode }) { 
+  
   const [perguntaData, setPerguntaData] = useState(null);
 
   useEffect(() => {
     async function fetchPergunta() {
+
       const data = await tabelaPerguntas(roomCode);
       if (data && data.length > 0) {
         setPerguntaData(data[statusPergunta - 1]);

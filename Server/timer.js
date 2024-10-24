@@ -1,30 +1,49 @@
 
-let tempoRestante = 120; // Tempo inicial (seg)
+let perguntaStatus = 1;
 let temporizadorAtivo = false;
-let perguntaStatus = 1; // Status inicial da pergunta
+let tempoTotal = 120;
+let tempoInicial; // Armazenar o horário de entrada do primeiro jogador
 
-// Função para atualizar o temporizador
+
+// Calcular tempo restante
+const calcularTempoRestante = () => {
+  const agora = new Date().getTime(); // Pega o horário atual
+  const tempoDecorrido = Math.floor((agora - tempoInicial) / 1000);
+  const tempoRestante = tempoTotal - tempoDecorrido;
+  return tempoRestante >= 0 ? tempoRestante : 0; // Retorna o tempo restante ou 0 se o tempo acabou
+};
+
+// Atualizar o temporizador
 const atualizarTemporizador = (io) => {
+  
+  const tempoRestante = calcularTempoRestante();
+  
   if (tempoRestante > 0) {
-    tempoRestante -= 1;
-    io.emit('tempoAtualizado', tempoRestante); // Envia a atualização do tempo para todos os clientes
+    io.emit('tempoAtualizado', tempoRestante); // Manda atualização do tempo
   } else {
+
     // Atualiza o status da pergunta
     perguntaStatus += 1;
+
+    //Quando acabar
     if (perguntaStatus > 10) {
       perguntaStatus = 1; // Reinicia o status da pergunta
     }
     io.emit('statusPerguntaAtualizado', perguntaStatus); // Envia a atualização do status da pergunta para todos os clientes
 
-    tempoRestante = 120; // Reinicia o temporizador
-
+    // Reinicia o temporizador
+    tempoInicial = new Date().getTime();
   }
 };
 
-// Função para iniciar o temporizador
+// Iniciar o temporizador
 const iniciarTemporizador = (io) => {
+
   if (temporizadorAtivo) return; // Evita iniciar múltiplos temporizadores
+
   temporizadorAtivo = true;
+  tempoInicial = new Date().getTime(); // Captura o horário de entrada do primeiro jogador
+
   setInterval(() => atualizarTemporizador(io), 1000); // Atualiza o tempo a cada segundo
 };
 

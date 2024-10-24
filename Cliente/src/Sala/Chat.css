@@ -53,15 +53,10 @@
 
 .enviar{
     position: relative;
-    background-color: var(--cor4);
+    background-color: var(--cor2);
     border: none;
     height: 40px;
     width: 10%;
     border-radius: 10px;
     cursor: pointer;
-}
-
-.enviar:hover{
-    background-color: var(--cor2);
-    transition: .2s;
 }

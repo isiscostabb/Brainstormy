@@ -36,7 +36,7 @@ function Sala() {
     });
 
     newSocket.on('updateUserList', (userList) => {
-      setUserList(userList.map(user => ({ username: user, avatarUrl: `https://picsum.photos/seed/${user}/50` })));
+      setUserList(userList.map(user => ({ username: user, score: 0 })));
     });
 
     return () => {
@@ -59,7 +59,12 @@ function Sala() {
           <h1 className='h1Sala'>PÓDIO</h1>
           <div className='podio'>
             {userList.map((user, index) => (
-              <Podio key={index} username={user.username} avatarUrl={user.avatarUrl} isOwnUser={user.username === username} />
+              <Podio 
+              key={index} 
+              username={user.username} 
+              score={user.score} 
+              isOwnUser={user.username === username} 
+            />
             ))}
           </div>
         </Conteiner>
