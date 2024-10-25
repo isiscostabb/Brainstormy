@@ -9,7 +9,7 @@ function Perguntas({ statusPergunta, roomCode }) {
 
   useEffect(() => {
     async function fetchPergunta() {
-
+      
       const data = await tabelaPerguntas(roomCode);
       if (data && data.length > 0) {
         setPerguntaData(data[statusPergunta - 1]);
