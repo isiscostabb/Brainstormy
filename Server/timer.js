@@ -4,7 +4,6 @@ let temporizadorAtivo = false;
 let tempoTotal = 120;
 let tempoInicial;
 
-// Calcular tempo restante
 const calcularTempoRestante = () => {
   const agora = new Date().getTime();
   const tempoDecorrido = Math.floor((agora - tempoInicial) / 1000);
@@ -14,38 +13,30 @@ const calcularTempoRestante = () => {
     return tempoRestante;
   } else if (tempoRestante <= 0) {
     contagem += 1;
-  
     return 0;
   }
 };
 
-// Atualizar temporizador
 const atualizarTemporizador = (io) => {
   const tempoRestante = calcularTempoRestante();
 
   if (tempoRestante > 0) {
-    io.emit('tempoAtualizado', tempoRestante); // Manda atualização do tempo
-    io.emit('statusPerguntaAtualizado', contagem); // Manda status da pergunta
-
+    io.emit('tempoAtualizado', tempoRestante);
+    io.emit('statusPerguntaAtualizado', contagem);
   } else {
-
     if (contagem > 10) {
-      contagem = 1; // add logica para ir para podio
+      contagem = 1; // add dps ir p/ ranking
     }
-    
-    tempoInicial = new Date().getTime(); // Reinicia o temporizador
+    tempoInicial = new Date().getTime();
   }
 };
 
-// Iniciar o temporizador
 const iniciarTemporizador = (io) => {
-  
-  if (temporizadorAtivo) return; // Evita iniciar múltiplos temporizadores
-
+  if (temporizadorAtivo) return;
   temporizadorAtivo = true;
-  tempoInicial = new Date().getTime(); // Captura o horário de entrada do primeiro jogador
+  tempoInicial = new Date().getTime();
 
-  setInterval(() => atualizarTemporizador(io), 1000); // Atualiza o tempo a cada segundo
+  setInterval(() => atualizarTemporizador(io), 1000);
 };
 
 module.exports = { iniciarTemporizador };

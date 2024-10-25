@@ -15,15 +15,14 @@ const Chat = ({ messageList, username, handleSubmit }) => {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      handleSubmit(messageRef.current.value); 
-      messageRef.current.value = ''; 
+      handleSubmit(messageRef.current.value);
+      messageRef.current.value = '';
     }
   };
 
   return (
     <div className='chat'>
       <h2>CHAT PARA DISCUSSÃO</h2>
-
       <div className='mensagens'>
         {messageList.map((message, index) => (
           <p key={index} className={`msg ${message.author === username ? 'this' : ''}`}>
@@ -32,20 +31,19 @@ const Chat = ({ messageList, username, handleSubmit }) => {
         ))}
         <div ref={messagesEndRef} />
       </div>
-
       <div className='msgBot'>
         <input
           type="text"
           className='inputMensagens'
           placeholder="Digite sua mensagem"
           ref={messageRef}
-          onKeyDown={handleKeyDown}/>
-
+          onKeyDown={handleKeyDown} />
         <button
           className='enviar'
           onClick={() => {
             handleSubmit(messageRef.current.value);
-            messageRef.current.value = ''; }}>
+            messageRef.current.value = '';
+          }}>
           <p>Enviar</p>
         </button>
       </div>

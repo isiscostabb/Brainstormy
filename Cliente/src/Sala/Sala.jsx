@@ -12,7 +12,7 @@ import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
-
+  
   const location = useLocation();
   const username = location.state?.username || 'Usuário';
   const roomCode = location.state?.roomCode;
@@ -39,17 +39,31 @@ function Sala() {
       setUserList(userList.map(user => ({ username: user, score: 0 })));
     });
 
+    newSocket.on('statusPerguntaAtualizado', (novaPergunta) => {
+      setStatusPergunta(novaPergunta); // Atualiza status da pergunta
+    });
+
     return () => {
       newSocket.off('recebendoMsg');
       newSocket.off('userLeft');
       newSocket.off('updateUserList');
+      newSocket.off('statusPerguntaAtualizado');
       newSocket.disconnect();
     };
   }, [username]);
 
+  useEffect(() => {
+    setMessageList([]); // Limpa as mensagens quando a pergunta muda
+  }, [statusPergunta]);
+
   const handleSubmit = (message) => {
     if (!message.trim()) return;
     socket.emit('newMessage', message);
+  };
+
+  const handleLeaveRoom = () => {
+    socket.emit('leaveRoom', username);
+    socket.disconnect();
   };
 
   return (
@@ -82,7 +96,7 @@ function Sala() {
             />
           </Conteiner>
           <Link to="/">
-            <button type="submit" className='sair' onClick={() => handleLeaveRoom()}>
+            <button type="submit" className='sair' onClick={handleLeaveRoom}>
               <p>Sair da Sala</p>
             </button>
           </Link>
