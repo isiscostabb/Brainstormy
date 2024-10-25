@@ -8,11 +8,12 @@ Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personag
 - [Alexandre Destro](https://github.com/AlexandreDestro)
 
 ## 📊 Tecnologias utilizadas:
-- HTML
-- CSS
-- JavaScript
-- React
-- WebSocket
+- HTML;
+- CSS;
+- JavaScript;
+- React;
+- WebSocket;
+- Node.
 
 ## 🔧 Intalação:
 1. Clone este repositório com `git clone` ou baixe o código-fonte.
