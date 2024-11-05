@@ -1,3 +1,4 @@
+
 import { supabase } from './supabase.js';
 
 export async function tabelaJogadores(codigoSala, nomeJogador) {

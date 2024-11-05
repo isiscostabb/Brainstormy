@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
@@ -11,37 +12,28 @@ import './Lobby.css';
 function Lobby() {
   const usernameRef = useRef();
   const roomCodeRef = useRef();
-  const [erroSala, setErroSala] = useState(''); // Estado para armazenar a mensagem de erro
+  const [erroSala, setErroSala] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const username = usernameRef.current.value;
-    const roomCode = roomCodeRef.current.value;
+    const username = usernameRef.current.value.trim();
+    const roomCode = roomCodeRef.current.value.trim();
 
-    if (!username.trim() || !roomCode) return; // Verifica se ambos os campos foram preenchidos
+    if (!username || !roomCode) return;
 
-    // Verifica se a sala existe
     const salaExiste = await verificarSala(roomCode);
     if (!salaExiste) {
       setErroSala('Sala não encontrada. Verifique o código e tente novamente.');
-      return; // Impede a navegação se a sala não existir
-    }
-
-    // Conecta ao WebSocket
-    const socket = await io.connect('http://localhost:3001');
-    socket.emit('newUser', username); // Manda nome do usuário para o Server
-
-    // Chama a função que insere o jogador no banco de dados
-    const resultado = await tabelaJogadores(roomCode, username);
-    if (resultado) {
-      console.log('Jogador inserido no banco:', resultado);
-    } else {
-      console.error('Erro ao inserir jogador no banco');
       return;
     }
 
-    // Navega para a sala com os dados
-    navigate('/Sala', { state: { username, roomCode } }); // Manda código da sala + nome do usuário p/ Sala.jsx
+    const resultado = await tabelaJogadores(roomCode, username);
+    if (resultado) {
+      navigate('/Sala', { state: { username, roomCode } });
+    } else {
+      console.error('Erro ao inserir jogador no banco');
+      setErroSala('Erro ao criar jogador. Tente novamente.');
+    }
   };
 
   return (

@@ -12,7 +12,6 @@ import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
-  
   const location = useLocation();
   const username = location.state?.username || 'Usuário';
   const roomCode = location.state?.roomCode;
@@ -25,47 +24,30 @@ function Sala() {
   useEffect(() => {
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
+
     newSocket.emit('newUser', username);
-
-    newSocket.on('recebendoMsg', (data) => {  
-      setMessageList((current) => [...current, data]);
-    });
-
-    newSocket.on('userLeft', (leftUser) => {
-      setUserList((currentList) => currentList.filter(user => user !== leftUser));
-    });
-
+    newSocket.on('recebendoMsg', (data) => setMessageList((current) => [...current, data]));
+    newSocket.on('userLeft', (leftUser) => setUserList((currentList) => currentList.filter(user => user !== leftUser)));
     newSocket.on('updateUserList', (userList) => {
       setUserList(userList.map(user => ({ username: user, score: 0 })));
     });
-
-    newSocket.on('statusPerguntaAtualizado', (novaPergunta) => {
-      setStatusPergunta(novaPergunta); // Atualiza status da pergunta
-    });
+    newSocket.on('statusPerguntaAtualizado', setStatusPergunta);
 
     return () => {
-      newSocket.off('recebendoMsg');
-      newSocket.off('userLeft');
-      newSocket.off('updateUserList');
-      newSocket.off('statusPerguntaAtualizado');
       newSocket.disconnect();
     };
   }, [username]);
 
-  useEffect(() => {
-    setMessageList([]); // Limpa as mensagens quando a pergunta muda
-  }, [statusPergunta]);
-
   const handleSubmit = (message) => {
-    if (!message.trim()) return;
-    socket.emit('newMessage', message);
+    if (message.trim()) {
+      socket.emit('newMessage', message);
+    }
   };
 
   const handleLeaveRoom = () => {
     socket.emit('leaveRoom', username);
     socket.disconnect();
   };
-
   return (
     <>
       <Conteiner largura={'100vw'} altura={'100vh'}>
@@ -107,3 +89,5 @@ function Sala() {
 }
 
 export default Sala;
+
+
