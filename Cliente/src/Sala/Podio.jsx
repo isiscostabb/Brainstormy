@@ -13,13 +13,13 @@ function Podio({ username, isOwnUser, score }) {
 
         <div className='podioMeio'>
           <p className={`nomeUser ${isOwnUser ? 'this' : ''}`}> {username} </p>
-          <p className='pontuacao'>pontuação: {score}xp</p> {/* Atualizando a lógica para mostrar a pontuação */}
+          <p className='pontuacao'>pontuação: {score}xp</p>
         </div>
 
         <Conteiner largura={'30%'} altura={'100%'}>
           <div className='funcao'>
-            <p className='pFuncao'>CIDADÃO</p>  {/* ao clicar aparecer um texto explicando as 2 funções */}
-          </div> {/* lógica para funções */}
+            {isOwnUser && (<p className='pFuncao'>CIDADÃO</p>)}
+          </div>
         </Conteiner>
       </Conteiner>
     </>
