@@ -38,6 +38,11 @@ function Sala() {
     };
   }, [username]);
 
+  // Limpar chat cada rodada
+  useEffect(() => {
+    setMessageList([]);
+  }, [statusPergunta]);
+
   const handleSubmit = (message) => {
     if (message.trim()) {
       socket.emit('newMessage', message);
@@ -48,6 +53,7 @@ function Sala() {
     socket.emit('leaveRoom', username);
     socket.disconnect();
   };
+
   return (
     <>
       <Conteiner largura={'100vw'} altura={'100vh'}>
@@ -56,11 +62,11 @@ function Sala() {
           <div className='podio'>
             {userList.map((user, index) => (
               <Podio 
-              key={index} 
-              username={user.username} 
-              score={user.score} 
-              isOwnUser={user.username === username} 
-            />
+                key={index} 
+                username={user.username} 
+                score={user.score} 
+                isOwnUser={user.username === username} 
+              />
             ))}
           </div>
         </Conteiner>
@@ -89,5 +95,3 @@ function Sala() {
 }
 
 export default Sala;
-
-
