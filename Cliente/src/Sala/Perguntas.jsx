@@ -49,7 +49,6 @@ function Perguntas({ statusPergunta, roomCode }) {
   function verificarClique() {
     setClique(true); // Define o estado para verdadeiro, indicando que o usuário clicou
     if (setClique == true) {
-      h1
     }
   }
 
