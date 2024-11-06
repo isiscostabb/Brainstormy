@@ -56,3 +56,20 @@
     color: var(--cor2);
     text-align: center;
 }
+
+.selecao{
+    position: absolute;
+    display: flex;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.354);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: end;
+}
+
+.pSelecao{
+    position: relative;
+    bottom: 15px;
+}
