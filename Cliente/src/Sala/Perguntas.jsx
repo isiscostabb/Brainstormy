@@ -7,6 +7,8 @@ function Perguntas({ statusPergunta, roomCode }) {
   const [respostasAleatorias, setRespostasAleatorias] = useState([]); // Estado respostas
   const [acertou, setAcertou] = useState(false); // Estado acerto
   const [clique, setClique] = useState(false); // Estado de seleção de resposta
+  const [tempoAcabou, setTempoAcabou] = useState(false); // Estado para controlar o fim do tempo
+  const [mostrarTempoAcabou, setMostrarTempoAcabou] = useState(true); // Controle da visibilidade da mensagem "tempo acabou"
 
   useEffect(() => {
     async function fetchPergunta() {
@@ -36,10 +38,21 @@ function Perguntas({ statusPergunta, roomCode }) {
         setRespostasAleatorias(embaralhar(respostas));
         setAcertou(false); // Resetar o estado de acerto para cada rodada
         setClique(false); // Resetar o estado de clique para cada rodada
+        setTempoAcabou(false); // Resetar o estado de tempo para cada nova pergunta
+        setMostrarTempoAcabou(true); // Exibir mensagem "tempo acabou" para nova pergunta
       }
     }
     fetchPergunta();
   }, [statusPergunta, roomCode]);
+
+  // Simula o fim do tempo
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTempoAcabou(true); // Define o tempo como acabado
+    }, 1000); // Exemplo: define 10 segundos para cada pergunta
+
+    return () => clearTimeout(timer); // Limpa o temporizador se o componente desmontar ou o statusPergunta mudar
+  }, [statusPergunta]);
 
   if (!perguntaData) {
     return <p>Carregando...</p>;
@@ -48,16 +61,19 @@ function Perguntas({ statusPergunta, roomCode }) {
   // Função verificar o clique
   function verificarClique() {
     setClique(true); // Define o estado para verdadeiro, indicando que o usuário clicou
-    if (setClique == true) {
-    }
   }
 
-  // Função verificar resposp
+  // Função verificar resposta
   function verificarResposta(resposta) {
     verificarClique(); // Marca que o usuário clicou em uma resposta
     if (resposta === perguntaData.respCorreta) {
       setAcertou(true); // Define o estado de acerto para verdadeiro
     }
+  }
+
+  // Função para esconder a mensagem de "tempo acabou"
+  function fecharTempoAcabou() {
+    setMostrarTempoAcabou(false);
   }
 
   return (
@@ -73,11 +89,38 @@ function Perguntas({ statusPergunta, roomCode }) {
         ))}
       </div>
       
-      {acertou && <h1>PARABÉNS</h1>} {/* msg acerto */}
-      {clique &&
-      <div className='selecao'>
-              <p className='pSelecao'>O resultado aparece somente após o final da rodada</p>  {/* msg após clique */}
-      </div>}
+      {/* Quando clica em uma resp */}
+      {clique && (
+        <div className='selecao'>
+          <p className='pSelecao'>O resultado aparece somente após o final da rodada</p>
+        </div>
+      )}
+
+      {/* Quando tempo acaba */}
+      {tempoAcabou && mostrarTempoAcabou && (
+        <div className='resultados'>
+
+          <div className='topResultados'>
+            <h1 className='h1Resultados'>RESULTADOS DA RODADA</h1>
+              {/*{acertou && <h1>PARABÉNS</h1>}  msg acerto */}
+            <h2 className='h2Resultados'>VOCÊ ACERTOU A RESPOSTA E PONTOU X PONTOS</h2>
+            <button className='fecharResultados' onClick={fecharTempoAcabou}>Fechar</button>
+          </div>
+
+          <div className='midResultados'>
+            <h3 className='h3Resultados'>TOTAL DE ACERTOS DOS JOGADORES: X</h3>
+            <h3 className='h3Resultados'>CADA <strong>CIDADÃO</strong> RECEBEU X PONTOS</h3>
+          </div>
+
+          <div className='midResultados'>
+            <h3 className='h3Resultados'>TOTAL DE ERROS DOS JOGADORES: X</h3>
+            <h3 className='h3Resultados'>CADA <strong>BOBO</strong> RECEBEU X PONTOS</h3>
+          </div>
+
+        </div>
+      )}
+
+
     </div>
   );
 }
