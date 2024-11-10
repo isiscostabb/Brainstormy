@@ -12,11 +12,6 @@
     overflow: hidden;
 }
 
-.avatarImg {
-    width: 100%;
-    height: auto;
-}
-
 /* NOME E PONTUAÇÃO */
 .podioMeio{
     position: relative;
