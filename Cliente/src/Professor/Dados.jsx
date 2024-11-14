@@ -22,12 +22,12 @@ function Dados() {
             <Conteiner altura={'30%'} largura={'90%'} direcao={'column'}>
               <h1 className='h1Dados'>BEM-VINDO PROFESSOR,</h1>
               <h1 className='h1Dados'>VAMOS INICIAR A CRIAÇÃO DAS PERGUNTAS!</h1>
-              <h2 className='h2Dados'>deverão ser criadas ao todo 10 perguntas, 3 alternativas erradas e 1 alternativa correta</h2>
+              <h2 className='h2Dados'>deverão ser criadas ao todo 10 perguntas, 3 alternativas erradas e 1 alternativa correta para cada.</h2>
             </Conteiner>
 
             <Conteiner altura={'50%'} largura={'90%'} direcao={'column'}>
               <h2 className='h2Login'>VAMOS COMEÇAR DEFININDO UM NOME PARA SALA:</h2>
-              <p className='pDados'>será o código que os alunos deverão inserir para jogar na sala</p>
+              <p className='pDados'>será o código que os alunos deverão inserir para jogar na sala.</p>
               <input type="number" className='inputLogin'/>
               <h2 className='h2Login'>AGORA NOS CONTE QUAL SERÁ O TEMA DO QUIZ:</h2>
               <p className='pDados'>sobre qual assunto/conteúdo irão se tratar as perguntas?</p>
