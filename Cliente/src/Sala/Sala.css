@@ -14,6 +14,7 @@
  
 
 /* PODIO */
+
 .h1Sala{
     font-size: 60px;
     margin-bottom: 10px;
@@ -27,4 +28,5 @@
     height: 85%;
     border-radius: 20px;
     background-color: var(--cor5);
+    overflow-y: scroll;
 }
