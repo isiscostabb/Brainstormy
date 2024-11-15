@@ -43,10 +43,12 @@ function Lobby() {
       <Conteiner largura={'100vw'} altura={'100%'} direcao={'column'}>
         <div className="textoLobby">
           <div className='logotitulo'>
-            <img src="../../Logo.png" alt="" />
+            <img src="../../Logo.png" alt="logo" className='logo'/>
             <h1 className="h1Lobby">BRAINSTORMY</h1>
+            <img src="../../Logo.png" alt="logo" className='logo'/>
+
           </div>
-          <p className="pLobby">Quiz Game</p>
+          <p className="pLobby">seu jogo de história</p>
         </div>
 
         <div className="caixaLobby">
