@@ -14,13 +14,13 @@ io.on('connection', (socket) => {
   // NOVO USUÁRIO
   socket.on('newUser', (username) => handleNewUser(socket, username, users, io));
   
-  // MSG    OK
+  // MSG    
   socket.on('newMessage', (txt) => handleNewMessage(socket, txt, io));
   
   // SAINDO
   socket.on('disconnect', (reason) => handleUserDisconnect(socket, users, io));
 
-  // Inicia o temporizador quando o primeiro usuário se conecta      OK
+  // Inicia o temporizador quando o primeiro usuário se conecta      
   if (users.length === 0) {
     iniciarTemporizador(io);
   }

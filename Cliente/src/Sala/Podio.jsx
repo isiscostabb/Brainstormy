@@ -5,7 +5,6 @@ import React from 'react';
 import Conteiner from '../Conteiner';
 import './Podio.css';
 
-
 function Podio({ username, isOwnUser, score }) {
   return (
     <>
@@ -21,10 +20,10 @@ function Podio({ username, isOwnUser, score }) {
           </div>
           <Conteiner largura={'30%'} altura={'100%'}>
             <div className='funcao'>
-              {isOwnUser && (<p className='pFuncao'>CIDADÃO</p>)}
-            </div>
-          </Conteiner>
+            {isOwnUser && (<p className='pFuncao'>XXXX</p>)}
+          </div>
         </Conteiner>
+      </Conteiner>
     </>
   );
 }

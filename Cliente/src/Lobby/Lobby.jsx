@@ -60,9 +60,7 @@ function Lobby() {
 
 
           <div className="botoesLobby">
-            {erroSala && <p className="erroSala">{erroSala}</p>} {/* Exibe a mensagem de erro, se houver */}
-
-            
+            {erroSala && <p className="erroSala">{erroSala}</p>} {/* msg erro */}
 
             <button className="lobby jogar" onClick={handleSubmit}><h2 className='txtButton'>JOGAR AGORA</h2></button>
             <Link to="/Login">
