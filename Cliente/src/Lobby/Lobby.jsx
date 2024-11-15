@@ -42,15 +42,18 @@ function Lobby() {
 
       <Conteiner largura={'100vw'} altura={'100%'} direcao={'column'}>
         <div className="textoLobby">
-          <h1 className="h1Lobby">BRAINSTORMY</h1>
-          <p className="pLobby">o seu jogo de história</p>
+          <div className='logotitulo'>
+            <img src="../../Logo.png" alt="" />
+            <h1 className="h1Lobby">BRAINSTORMY</h1>
+          </div>
+          <p className="pLobby">Quiz Game</p>
         </div>
 
         <div className="caixaLobby">
           <div className="inputLobby">
             <div className="input um">
               <p className="inputTxt nome">INSIRA SEU NOME:</p>
-              <input type="text" className="inputNome" ref={usernameRef} />
+              <input type="text" className="inputNome" required ref={usernameRef} />
             </div>
             <div className="input dois">
               <p className="inputTxt cod">INSIRA O CÓDIGO DA SALA:</p>
@@ -62,9 +65,9 @@ function Lobby() {
           <div className="botoesLobby">
             {erroSala && <p className="erroSala">{erroSala}</p>} {/* msg erro */}
 
-            <button className="lobby jogar" onClick={handleSubmit}><h2 className='txtButton'>JOGAR AGORA</h2></button>
+            <button className="lobby jogar" onClick={handleSubmit}><h2 className='txtButton'>ENTRAR NA SALA</h2></button>
             <Link to="/Login">
-              <button className="lobby criar"><h2 className='txtButton'>CRIAR SUA SALA</h2></button>
+              <button className="lobby criar"><h2 className='txtButton'>CRIAR SALA</h2></button>
             </Link>
           </div>
         </div>

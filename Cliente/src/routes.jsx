@@ -4,6 +4,7 @@ import Lobby from "./Lobby/Lobby";
 import Login from "./Professor/Login";
 import Dados from "./Professor/Dados"; 
 import CriarPergunta from "./Professor/CriarPergunta";
+import Ranking from "./Ranking/Ranking"; 
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -59,6 +60,17 @@ const routes = createBrowserRouter([
       </>
       ),
     },
+
+
+    //RANKING
+  {
+    path: "/Ranking",
+    element: (
+    <>
+      <Ranking/>
+    </>
+    ),
+  },
 ]);
 
 export default routes;

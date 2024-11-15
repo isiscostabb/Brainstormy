@@ -157,3 +157,16 @@ button.lobby:hover{
     font-size: 30px;
     text-decoration: none;
 }
+
+/* LOGO */
+
+img{
+    max-height: 200px;
+    padding-right: 16px;
+}
+
+.logotitulo {
+    display: flex;
+    align-items: center;
+    
+}
