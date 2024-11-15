@@ -1,8 +1,8 @@
-<img src="Cliente\public\Logo.png" width="110" height="110"> 
-
-# Projeto Integrador: Sistemas Web!
+# <img src="Cliente\public\Logo.png" width="65" height="65"> Projeto Integrador: Sistemas Web!
 
 Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personagens e assuntos escolares.
+
+<br/>
 
 ## 👷🏽 Desenvolvedores:
 
@@ -10,6 +10,8 @@ Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personag
 - [Miguel Fermo](https://github.com/miguelfermo)
 - [Isis Costa](https://github.com/isiscostabb)
 - [Alexandre Destro](https://github.com/AlexandreDestro)
+
+<br/>
 
 ## 📊 Tecnologias utilizadas:
 
@@ -20,6 +22,8 @@ Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personag
 - WebSocket;
 - Node.
 
+<br/>
+
 ## 🔧 Intalação:
 
 1. Clone este repositório com `git clone` ou baixe o código-fonte.
@@ -28,8 +32,12 @@ Desenvolvimento de um jogo estilo quiz, com perguntas históricas sobre personag
 4. Digite no terminal do Cliente: `npm install`
 5. Após isso digite: `npm run dev` e acesse o link
 
+<br/>
+
 ## 🎯 Público-alvo:
 
 Estudantes e estusiastas que queiram práticar seu conhecimento em história, tendo como objetivo, saber seu nível de acertividade sobre assuntos históricos.
+
+<br/>
 
 ## 🔭 Demonstração do projeto:
