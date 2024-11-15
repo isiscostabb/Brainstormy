@@ -53,7 +53,7 @@ function Lobby() {
           <div className="inputLobby">
             <div className="input um">
               <p className="inputTxt nome">INSIRA SEU NOME:</p>
-              <input type="text" className="inputNome" ref={usernameRef} />
+              <input type="text" className="inputNome" required ref={usernameRef} />
             </div>
             <div className="input dois">
               <p className="inputTxt cod">INSIRA O CÓDIGO DA SALA:</p>
