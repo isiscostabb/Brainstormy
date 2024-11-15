@@ -1,5 +1,5 @@
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
@@ -18,7 +18,7 @@ function Sala() {
 
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-  const [userList, setUserList] = useState([username]);
+  const [userList, setUserList] = useState([{ username, score: 0, category: 'CIDADÃO' }]);
   const [statusPergunta, setStatusPergunta] = useState(1);
 
   useEffect(() => {
@@ -27,9 +27,12 @@ function Sala() {
 
     newSocket.emit('newUser', username);
     newSocket.on('recebendoMsg', (data) => setMessageList((current) => [...current, data]));
-    newSocket.on('userLeft', (leftUser) => setUserList((currentList) => currentList.filter(user => user !== leftUser)));
-    newSocket.on('updateUserList', (userList) => {
-      setUserList(userList.map(user => ({ username: user, score: 0 })));
+    newSocket.on('userLeft', (leftUser) => 
+      setUserList((currentList) => currentList.filter(user => user.username !== leftUser))
+    );
+    newSocket.on('updateUserList', (users) => {
+      const updatedUsers = users.map(user => ({ username: user, score: 0 }));
+      setUserList(assignCategories(updatedUsers));  // Atribui as categorias a cada rodada
     });
     newSocket.on('statusPerguntaAtualizado', setStatusPergunta);
 
@@ -38,10 +41,22 @@ function Sala() {
     };
   }, [username]);
 
-  // Limpar chat cada rodada
+  // Limpar chat + atualiza categorias a cada rodada
   useEffect(() => {
     setMessageList([]);
+    setUserList(prevUserList => assignCategories(prevUserList));
   }, [statusPergunta]);
+
+  // Atribuir categorias
+  const assignCategories = (players) => {
+    const numBobo = Math.floor(players.length * 0.15);
+    const shuffledPlayers = [...players].sort(() => 0.5 - Math.random());
+    const updatedPlayers = shuffledPlayers.map((player, index) => ({
+      ...player,
+      category: index < numBobo ? 'BOBO' : 'CIDADÃO',
+    }));
+    return updatedPlayers;
+  };
 
   const handleSubmit = (message) => {
     if (message.trim()) {
@@ -66,6 +81,7 @@ function Sala() {
                 username={user.username} 
                 score={user.score} 
                 isOwnUser={user.username === username} 
+                category={user.category}
               />
             ))}
           </div>

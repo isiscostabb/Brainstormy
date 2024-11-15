@@ -1,9 +1,9 @@
 
 import { supabase } from './supabase.js';
 
-export async function tabelaJogadores(codigoSala, nomeJogador) {
-    // Inserir o nome do usuário na tabela jogadores e gerar um ID
-    const { data: jogadorData, error: jogadorError } = await supabase
+export async function tabelaJogadores(codigoSala, nomeJogador, categoria) {
+
+    const { data: jogadorData, error: jogadorError } = await supabase //nome jogador + gerar id 
         .from('jogadores')
         .insert([{ codigo_sala: codigoSala }])
         .select('id_jogador')
@@ -16,11 +16,10 @@ export async function tabelaJogadores(codigoSala, nomeJogador) {
 
     const idJogador = jogadorData.id_jogador;
 
-    // Inserir o nome do jogador e pontuação inicial na tabela dados_jogadores
-    const { data: dadosJogador, error: dadosError } = await supabase
+    const { data: dadosJogador, error: dadosError } = await supabase  // nome do jogador + pontuação inicial + a categoria (funcao)
         .from('dados_jogadores')
-        .insert([{ nome: nomeJogador, pontuacao: 0, id_jogador: idJogador }])
-        .select('nome, pontuacao')
+        .insert([{ nome: nomeJogador, pontuacao: 0, id_jogador: idJogador, funcao: categoria }])
+        .select('nome, pontuacao, funcao') 
         .single();
 
     if (dadosError) {
@@ -28,6 +27,5 @@ export async function tabelaJogadores(codigoSala, nomeJogador) {
         return null;
     }
 
-    // Retornar nome e pontuação do jogador
     return dadosJogador;
 }
