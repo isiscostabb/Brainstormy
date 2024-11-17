@@ -1,19 +1,11 @@
+/* LADO ESQUERDO */
+
 .esquerdo {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 30vw;
     height: 100%;
-}
-
-
-.direito {
-    position: relative;
-    display: flex;
-    width: 70vw;
-    height: 100%;  
-    justify-content: center;
-    align-items: center;
 }
 
 
@@ -34,6 +26,7 @@
     height: 40%;
     justify-content: center;
     align-items: flex-end;
+    
 }
 
 .primeiroLugar {
@@ -44,7 +37,8 @@
     height: 90%;
     background-color: var(--cor2);
     border-radius: 20px 20px 0px 0px;
-
+    overflow-y: auto;
+    overflow-x: hidden;
 
 }
 
@@ -75,53 +69,92 @@
 
 /* LADO DIREITO */
 
+.direito {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    height: 100%;  
+    justify-content: center;
+    align-items: center;
+}
+
+
 .direitoMid {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 85%;
-    height: 85%;
+    height: 75%;
     border-radius: 20px;
     overflow-y: auto;
     overflow-x: hidden;
     background-color: var(--cor2);
+    
 }
 
+.direitoTop{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 85%;
+    height: 15%;
+    border-radius: 20px;
+    background-color: var(--cor3);
+    font-size: 16px;
+    justify-content: space-around;
+    align-items: center;
+    transform: translateY(30%);
+}
 
 .linhaPlayer{
     background-color: var(--cor1);
-    border-radius: 20px;
-    margin-bottom: 5px;
-    width: 100%;
+    border: 2px var(--cor2);
     height: 120px;
     min-height: 90px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid var(--cor4);
-    font-size: 20px;
-    font-family: 'font2';
+    margin-bottom: 4px;
+
 }
 
 .dRank{
     justify-content: center;
     align-items: center;
     text-align: center;
+    place-items: center;
+    vertical-align: middle;
     height: 65%;
-    border-radius: 10px;
-   
+    font-size: 32px;
+    font-family: 'font2';
+    
+}
+
+.tRank{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    place-items: center;
+    vertical-align: middle;
+    height: 80%;
+    font-size: 32px;
+    font-family: 'font2';
+    
 }
 .posicaoRank{
     width: 10%;
-    background-color: aqua;
+    background-color: white;
+    border-radius: 20px;
 }
 
 .usuarioRank{
-    width: 40%;
-    background-color: gold;
+    width: 50%;
+
 }
 
 .pontosRank{
     width: 30%;
-    background-color: cadetblue;
+    background-color: white;
+    border-radius: 20px;
 }
