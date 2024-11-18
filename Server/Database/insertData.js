@@ -1,5 +1,5 @@
 
-//Inserir dados na tabela
+//Inserir dados na tabela (não está sendo usado, só exemplo)
 
 import { supabase } from './supabase.js'
 

@@ -5,7 +5,7 @@ import React from 'react';
 import Conteiner from '../Conteiner';
 import './Podio.css';
 
-function Podio({ username, isOwnUser, score, category }) {
+function Podio({ username, isOwnUser, score, category, idJogador }) {
   return (
     <>
         <Conteiner className='podio' largura={'100%'} altura={'100px'}>

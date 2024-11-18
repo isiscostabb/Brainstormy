@@ -6,31 +6,36 @@ import { io } from 'socket.io-client';
 import { tabelaJogadores } from '../../../Server/Database/tabelaJogadores';
 import { verificarSala } from '../../../Server/Database/verificarSala';
 import Conteiner from '../Conteiner';
-
 import './Lobby.css';
 
 function Lobby() {
+
   const usernameRef = useRef();
   const roomCodeRef = useRef();
-  const [erroSala, setErroSala] = useState('');
-  const navigate = useNavigate();
+  const [erroSala, setErroSala] = useState(''); //Estado msg erro
+  const navigate = useNavigate();  //Hook p/ redirecionar o usuário para outra página
 
+  // Função p/ manipulação dados do formulário
   const handleSubmit = async () => {
-    const username = usernameRef.current.value.trim();
-    const roomCode = roomCodeRef.current.value.trim();
 
-    if (!username || !roomCode) return;
+    const username = usernameRef.current.value.trim(); //Pegando nome usuário
+    const roomCode = roomCodeRef.current.value.trim(); //Pegando código da sala
 
+    if (!username || !roomCode) return; //Se o nome ou o código da sala estiverem vazios, retorna sem fazer nada
+
+    //Verificação se sala existe no banco
     const salaExiste = await verificarSala(roomCode);
-    if (!salaExiste) {
+
+    if (!salaExiste) { //Msg de erro se n achar sala
       setErroSala('Sala não encontrada. Verifique o código e tente novamente.');
       return;
     }
 
-    const resultado = await tabelaJogadores(roomCode, username);
-    if (resultado) {
-      navigate('/Sala', { state: { username, roomCode } });
-    } else {
+    const resultado = await tabelaJogadores(roomCode, username); //Add NOME e COD no banco
+
+    if (resultado) { //Se tiver sucesso em inserir
+      navigate('/Sala', { state: { username, roomCode } }); // Navega para a página '/Sala', passando NOME e o COD
+    } else { //Se n tiver sucesso
       console.error('Erro ao inserir jogador no banco');
       setErroSala('Erro ao criar jogador. Tente novamente.');
     }
