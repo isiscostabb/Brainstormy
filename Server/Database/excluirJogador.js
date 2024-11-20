@@ -1,17 +1,17 @@
-// Função para excluir os dados de um jogador ao sair
 
 import { supabase } from './supabase.js';
 
 export async function excluirJogador(nomeJogador) {
+
+    //Verificação existencia jogador
     try {
-        // Primeiro, verificar se o jogador existe
         const { data: jogadorExistente, error: erroVerificar } = await supabase
             .from('dados_jogadores')
             .select('id_jogador')
             .eq('nome', nomeJogador)
             .single();
 
-        // Se não encontrar o jogador, ou ocorrer erro
+        // Se n encontrar
         if (erroVerificar) {
             console.error('Erro ao verificar jogador:', erroVerificar);
             return null;
@@ -19,33 +19,36 @@ export async function excluirJogador(nomeJogador) {
 
         if (!jogadorExistente) {
             console.log('Jogador não encontrado.');
-            return null; // Jogador não encontrado
+            return null; 
         }
 
-        // Se o jogador foi encontrado, exclua o registro dele
+        // Quando encontrar
+        // Exclusão tabela 1
         const { error: erroExcluir } = await supabase
-            .from('dados_jogadores') // Tabela onde os dados do jogador estão armazenados
+            .from('dados_jogadores')
             .delete()
-            .eq('id_jogador', jogadorExistente.id_jogador); // Exclui com base no id_jogador
+            .eq('id_jogador', jogadorExistente.id_jogador);
 
-        // Verificar se ocorreu erro na exclusão
+        // Caso acontença erro
         if (erroExcluir) {
-            console.error('Erro ao excluir dados do jogador:', erroExcluir);
+            console.error('Erro ao excluir na tabela "dados_jogadores":', erroExcluir);
             return null;
         }
 
-        // Opcional: Se também quiser excluir da tabela 'jogadores' (caso seja necessário)
+        // Exclusão tabela 2
         const { error: erroExcluirJogador } = await supabase
             .from('jogadores')
             .delete()
-            .eq('id_jogador', jogadorExistente.id_jogador); // Exclui com base no id_jogador
+            .eq('id_jogador', jogadorExistente.id_jogador);
 
+        // Caso acontença erro
         if (erroExcluirJogador) {
-            console.error('Erro ao excluir jogador da tabela "jogadores":', erroExcluirJogador);
+            console.error('Erro ao excluir jogador na tabela "jogadores":', erroExcluirJogador);
             return null;
         }
 
-        console.log('Jogador excluído com sucesso.');
+        // Sucesso
+        console.log('Jogador excluído com sucesso nas 2 tabelas.');
         return true; // Sucesso na exclusão
 
     } catch (error) {
