@@ -62,12 +62,12 @@ function Sala() {
   }, [statusPergunta]); //O useEffect depende de 'statusPergunta'
 
   // Função BOBO e CIDADÃO
-const assignCategories = (players) => {
-  const numBobo = Math.floor(players.length * 0.15); // Calculo do 15%
-  const shuffledPlayers = [...players].sort(() => 0.5 - Math.random()); // Embaralha lista de jogador
-  const updatedPlayers = shuffledPlayers.map((player, index) => ({
-    ...player,
-    category: index < numBobo ? 'BOBO' : 'CIDADÃO', // Atribui 'BOBO' ou 'CIDADÃO' com base na posição do jogador
+  const assignCategories = (players) => {
+    const numBobo = Math.floor(players.length * 0.15); // Calculo do 15%
+    const shuffledPlayers = [...players].sort(() => 0.5 - Math.random()); // Embaralha lista de jogador
+    const updatedPlayers = shuffledPlayers.map((player, index) => ({
+      ...player,
+      category: index < numBobo ? 'BOBO' : 'CIDADÃO', // Atribui 'BOBO' ou 'CIDADÃO' com base na posição do jogador
   }));
 
   // Envia as categorias para a tabelaJogadores

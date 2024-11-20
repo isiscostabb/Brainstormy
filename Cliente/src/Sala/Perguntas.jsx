@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { tabelaPerguntas } from '../../../Server/Database/tabelaPerguntas.js';
 import './Perguntas.css';
@@ -6,6 +7,7 @@ function Perguntas({ statusPergunta, roomCode }) {
   const [perguntaData, setPerguntaData] = useState(null); // Estado pergunta
   const [respostasAleatorias, setRespostasAleatorias] = useState([]); // Estado respostas
   const [acertou, setAcertou] = useState(false); // Estado acerto
+  const [errou, setErrou] = useState(false); // Estado erro
   const [clique, setClique] = useState(false); // Estado de seleção de resposta
   const [tempoAcabou, setTempoAcabou] = useState(false); // Estado para controlar o fim do tempo
   const [mostrarTempoAcabou, setMostrarTempoAcabou] = useState(true); // Controle da visibilidade da mensagem "tempo acabou"
@@ -25,7 +27,7 @@ function Perguntas({ statusPergunta, roomCode }) {
           pergunta.respIncorreta3
         ];
         
-        // Função para embaralhar (Fisher-Yates)
+        // Embaralhar respostas (Fisher-Yates)
         function embaralhar(array) {
           for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -34,46 +36,48 @@ function Perguntas({ statusPergunta, roomCode }) {
           return array;
         }
 
-        // Embaralha as respostas
-        setRespostasAleatorias(embaralhar(respostas));
-        setAcertou(false); // Resetar o estado de acerto para cada rodada
+        setRespostasAleatorias(embaralhar(respostas)); // Embaralha as respostas
         setClique(false); // Resetar o estado de clique para cada rodada
+        setMostrarTempoAcabou(true); // Mostrar os reusltados da rodada
         setTempoAcabou(false); // Resetar o estado de tempo para cada nova pergunta
-        setMostrarTempoAcabou(true); // Exibir mensagem "tempo acabou" para nova pergunta
       }
     }
     fetchPergunta();
   }, [statusPergunta, roomCode]);
 
-  // Simula o fim do tempo
+  // Fim do tempo
   useEffect(() => {
     const timer = setTimeout(() => {
       setTempoAcabou(true); // Define o tempo como acabado
-    }, 1000); // Exemplo: define 10 segundos para cada pergunta
+    }, 1000);
 
-    return () => clearTimeout(timer); // Limpa o temporizador se o componente desmontar ou o statusPergunta mudar
+    return () => clearTimeout(timer); // Limpa o temporizador qunado statusPergunta mudar
   }, [statusPergunta]);
 
   if (!perguntaData) {
     return <p>Carregando...</p>;
   }
 
-  // Função verificar o clique
+  // Após o clique bloqueia as respostas
   function verificarClique() {
-    setClique(true); // Define o estado para verdadeiro, indicando que o usuário clicou
+    setClique(true);
   }
 
-  // Função verificar resposta
+  // Verificar resposta
   function verificarResposta(resposta) {
-    verificarClique(); // Marca que o usuário clicou em uma resposta
+    verificarClique(); // Chama função quando clica
     if (resposta === perguntaData.respCorreta) {
-      setAcertou(true); // Define o estado de acerto para verdadeiro
+      setAcertou(true); // Evento para quando acerta
+    } else {
+      setErrou(true); // Evento para quando erra
     }
   }
 
-  // Função para esconder a mensagem de "tempo acabou"
+  // Resultados quando acaba tempo
   function fecharTempoAcabou() {
     setMostrarTempoAcabou(false);
+    setErrou(false); // Resetar o estado de erro para cada rodada
+    setAcertou(false); // Resetar o estado de acerto para cada rodada
   }
 
   return (
@@ -102,25 +106,24 @@ function Perguntas({ statusPergunta, roomCode }) {
 
           <div className='topResultados'>
             <h1 className='h1Resultados'>RESULTADOS DA RODADA</h1>
-              {/*{acertou && <h1>PARABÉNS</h1>}  msg acerto */}
-            <h2 className='h2Resultados'>VOCÊ ACERTOU A RESPOSTA E PONTOU X PONTOS</h2>
+            <h2 className='h2Resultados'>
+              VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO ESCOLHEU NENHUMA OPÇÃO'} E RECEBEU X PONTOS
+            </h2>
             <button className='fecharResultados' onClick={fecharTempoAcabou}>Fechar</button>
           </div>
 
           <div className='midResultados'>
-            <h3 className='h3Resultados'>TOTAL DE ACERTOS DOS JOGADORES: X</h3>
+            <h3 className='h3Resultados'>QUANTIDADE DE ACERTOS: X</h3>
             <h3 className='h3Resultados'>CADA <strong>CIDADÃO</strong> RECEBEU X PONTOS</h3>
           </div>
 
           <div className='midResultados'>
-            <h3 className='h3Resultados'>TOTAL DE ERROS DOS JOGADORES: X</h3>
+            <h3 className='h3Resultados'>QUANTIDADE DE ERROS: X</h3>
             <h3 className='h3Resultados'>CADA <strong>BOBO</strong> RECEBEU X PONTOS</h3>
           </div>
 
         </div>
       )}
-
-
     </div>
   );
 }
