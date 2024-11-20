@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
-import { useParams } from 'react-router-dom';
-import { insercaoJogadores } from '../../../Server/Database/insercaoJogadores';
-import { insercaoFuncao } from '../../../Server/Database/insercaoFuncao';import Conteiner from '../Conteiner';
+import { tabelaJogadores } from '../../../Server/Database/tabelaJogadores';
+import Conteiner from '../Conteiner';
 import Podio from './Podio';
 import Temporizador from './Temporizador';
 import Chat from './Chat'; 
@@ -12,6 +11,7 @@ import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
+
   // Pegando dados do formulário do Lobby
   const location = useLocation();   // Pegar dados passados pela navegação do Lobby
   const username = location.state?.username || 'Usuário'; // NOME jogador
@@ -35,7 +35,7 @@ function Sala() {
     
     // Ouvinte sair da sala (remove da lista de usuários)
     newSocket.on('userLeft', (leftUser) => 
-      setUserList((currentList) => currentList.filter(user => user.username !== leftUser))
+      setUserList((currentList) => currentList.filter(user => user.username !== leftUser)) // Atribui as categorias cada rodada
     );
 
     // Ouvinte atualizar lista jogadores
@@ -52,49 +52,38 @@ function Sala() {
       newSocket.disconnect();
     };
 
-  }, [username]);
+  }, [username]); //O useEffect depende apenas do 'username', para conectar o socket novamente caso mude.
 
   // Atualiza MSG e JOGADORES sempre que o status da pergunta mudar
   useEffect(() => {
-    const updatePlayers = async () => {
-      setMessageList([]); // Limpa msg
-      const updatedUserList = await assignCategories(userList);
-      setUserList(updatedUserList); // Atualiza a lista de usuários com categorias atribuídas
-    };
-
-    updatePlayers();
-  }, [statusPergunta]);
+    setMessageList([]); // Limpa msg
+    setUserList(prevUserList => assignCategories(prevUserList)); // Atribui as categorias novamente aos jogadores(atualizar no banco tbm)
+  }, [statusPergunta]); //O useEffect depende de 'statusPergunta'
 
   // Função BOBO e CIDADÃO
-  const assignCategories = async (players) => {
-    const numBobo = Math.floor(players.length * 0.15); // Calculo do 15%
-    const shuffledPlayers = [...players].sort(() => 0.5 - Math.random()); // Embaralha lista de jogador
-    const updatedPlayers = await Promise.all(
-      shuffledPlayers.map(async (player, index) => {
-        const category = index < numBobo ? 'BOBO' : 'CIDADÃO'; // Define categoria
-        const result = await tabelaJogadores(roomCode, player.username, category); // Espera o retorno do ID do jogador
-        const idJogador = result?.id_jogador;
+const assignCategories = (players) => {
+  const numBobo = Math.floor(players.length * 0.15); // Calculo do 15%
+  const shuffledPlayers = [...players].sort(() => 0.5 - Math.random()); // Embaralha lista de jogador
+  const updatedPlayers = shuffledPlayers.map((player, index) => ({
+    ...player,
+    category: index < numBobo ? 'BOBO' : 'CIDADÃO', // Atribui 'BOBO' ou 'CIDADÃO' com base na posição do jogador
+  }));
 
-        // Aqui você pode fazer outra atualização no banco, se necessário, usando idJogador
-        if (idJogador) {
-          console.log(`Jogador ${player.username} recebeu ID ${idJogador}`);
-        } else {
-          console.warn(`Falha ao atribuir ID para ${player.username}`);
-        }
-
-        return { ...player, category }; // Retorna o jogador atualizado com a categoria
-      })
-    );
-
+  // Envia as categorias para a tabelaJogadores
+  updatedPlayers.forEach((player) => {
+    tabelaJogadores(roomCode, player.username, player.category);  // Atualizando tabelaJogadores
+    
     // Envia para o servidor
-    updatedPlayers.forEach((player) => {
-      if (socket && socket.connected) {
-        socket.emit('updateCategory', { username: player.username, category: player.category, roomCode });
-      }
-    });
+    if (socket && socket.connected) {
+      socket.emit('updateCategory', { username: player.username, category: player.category, roomCode });
+    } else {
+      console.warn('Socket não está conectado ou disponível para emitir eventos.');
+    }
+  });
 
-    return updatedPlayers; // Retorna a lista atualizada de jogadores com suas categorias
-  };
+  return updatedPlayers; // Retorna a lista atualizada de jogadores com suas categorias
+};
+
 
   // Função q é chamada quando msg é enviada
   const handleSubmit = async (message) => {
@@ -157,3 +146,5 @@ function Sala() {
 }
 
 export default Sala;
+
+
