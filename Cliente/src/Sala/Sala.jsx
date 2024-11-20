@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import { tabelaJogadores } from '../../../Server/Database/tabelaJogadores';
+import { excluirJogador } from '../../../Server/Database/excluirJogador'; // Importe a função de exclusão
 import Conteiner from '../Conteiner';
 import Podio from './Podio';
 import Temporizador from './Temporizador';
@@ -95,9 +96,18 @@ const assignCategories = (players) => {
   };
 
   // Função que é chamada quando usuário sai
-  const handleLeaveRoom = () => {
+  const handleLeaveRoom = async () => {
     if (socket && socket.connected) {
       socket.emit('leaveRoom', username);
+      
+      // Chama a função para excluir os dados do jogador ao sair
+      const success = await excluirJogador(username);
+      if (success) {
+        console.log(`Dados do jogador ${username} excluídos com sucesso.`);
+      } else {
+        console.warn('Erro ao excluir os dados do jogador.');
+      }
+
       socket.disconnect(); // Desconecta no servidor
     } else {
       console.warn('Socket não está conectado ou disponível para sair da sala.');
@@ -146,5 +156,3 @@ const assignCategories = (players) => {
 }
 
 export default Sala;
-
-
