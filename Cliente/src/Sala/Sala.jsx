@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
@@ -13,18 +12,17 @@ import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
+  const location = useLocation();
+  const username = location.state?.username || 'Usuário';
+  const roomCode = location.state?.roomCode;
 
-  // Pegando dados do formulário do Lobby
-  const location = useLocation();   // Pegar dados passados pela navegação do Lobby
-  const username = location.state?.username || 'Usuário'; // NOME jogador
-  const roomCode = location.state?.roomCode; // CÓDIGO sala
+  const [socket, setSocket] = useState(null);
+  const [messageList, setMessageList] = useState([]);
+  const [userList, setUserList] = useState([{ username, category: '' }]);
+  const [statusPergunta, setStatusPergunta] = useState(1);
+  const [jogadores, setJogadores] = useState([]);  // Estado para armazenar os dados dos jogadores
 
-  const [socket, setSocket] = useState(null); // Conexão
-  const [messageList, setMessageList] = useState([]); // Msg
-  const [userList, setUserList] = useState([{ username, category: '' }]); // Lista de jogadores, categorias e pontuação
-  const [statusPergunta, setStatusPergunta] = useState(1); // Status pergunta
-
-  // Estabelece a conexão e configura os ouvintes de eventos quando o componente for montado
+  // Estabelece a conexão com o servidor
   useEffect(() => {
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
@@ -34,7 +32,7 @@ function Sala() {
 
     // Ouvinte msg
     newSocket.on('recebendoMsg', (data) => setMessageList((current) => [...current, data]));
-    
+
     // Ouvinte sair da sala (remove da lista de usuários)
     newSocket.on('userLeft', (leftUser) => 
       setUserList((currentList) => currentList.filter(user => user.username !== leftUser)) // Atribui as categorias cada rodada
@@ -76,19 +74,35 @@ function Sala() {
       tabelaJogadores(roomCode, player.username, player.category);  // Atualizando tabelaJogadores
       // Envia para o servidor
       if (socket && socket.connected) {
-        socket.emit('updateCategory', { username: player.username, category: player.category});
-      } else {
-        console.warn('Socket não está conectado ou disponível para emitir eventos.');
+        socket.emit('updateCategory', { username: player.username, category: player.category });
       }
     });
 
-    return updatedPlayers; // Retorna a lista atualizada de jogadores com suas categorias
+    return updatedPlayers;
   };
 
-  // Função q é chamada quando msg é enviada
+  // Função para pegar os dados dos jogadores ao entrar na sala
+  const fetchJogadoresData = async () => {
+    const jogadoresData = [];
+    for (const user of userList) {
+      const jogador = await tabelaJogadores(roomCode, user.username, user.category, user.score);
+      if (jogador) {
+        jogadoresData.push(jogador);
+      }
+    }
+    setJogadores(jogadoresData);  // Atualiza o estado com os dados dos jogadores
+  };
+
+  useEffect(() => {
+    if (roomCode) {
+      fetchJogadoresData();  // Busca os dados dos jogadores quando a sala é acessada
+    }
+  }, [userList, roomCode]);
+
+  // Função chamada quando a mensagem é enviada
   const handleSubmit = async (message) => {
     if (message.trim() && socket && socket.connected) {
-      socket.emit('newMessage', message); // Manda pro servidor
+      socket.emit('newMessage', message);
     } else {
       console.warn('Socket não está conectado ou disponível para enviar mensagem.');
     }
@@ -118,13 +132,13 @@ function Sala() {
       <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
         <h1 className='h1Sala'>PÓDIO</h1>
         <div className='podio'>
-          {userList.map((user, index) => (
+          {jogadores.map((jogador, index) => (
             <Podio 
               key={index} 
-              username={user.username} 
-              score={user.score} 
-              isOwnUser={user.username === username} 
-              category={user.category}
+              username={jogador.nome} 
+              score={jogador.pontuacao} 
+              isOwnUser={jogador.nome === username} 
+              category={jogador.category}
             />
           ))}
         </div>
@@ -133,15 +147,16 @@ function Sala() {
       <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
         <Temporizador onStatusPerguntaChange={setStatusPergunta} />
         <Conteiner largura={'100%'} altura={'52vh'}>
-          {userList.map((user, index) => (
-              <Perguntas 
-                key={index} 
-                username={user.username} 
-                score={user.score} 
-                isOwnUser={user.username === username} 
-                category={user.category}
-                statusPergunta={statusPergunta}
-                roomCode={roomCode}/>
+          {jogadores.map((jogador, index) => (
+            <Perguntas 
+              key={index} 
+              username={jogador.nome} 
+              score={jogador.pontuacao} 
+              isOwnUser={jogador.nome === username} 
+              category={jogador.category}
+              statusPergunta={statusPergunta}
+              roomCode={roomCode}
+            />
           ))}
         </Conteiner>
         <Conteiner largura={'100%'} altura={'40vh'}>

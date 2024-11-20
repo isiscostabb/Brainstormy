@@ -1,3 +1,4 @@
+
 import { supabase } from './supabase.js';
 
 export async function atualizarRodada(codigoSala, nomeJogador, pontuacao, categoria) {
@@ -13,7 +14,7 @@ export async function atualizarRodada(codigoSala, nomeJogador, pontuacao, catego
 
         // Se jogador já existe
         if (jogadorExistente) {
-            console.log('Jogador já existe:', jogadorExistente); // Exibe dados do jogador existente no console
+            console.log('Jogador já existe:', jogadorExistente); 
 
             // Atualiza pontuação e categoria
             const { data: jogadorAtualizado } = await supabase
@@ -28,11 +29,10 @@ export async function atualizarRodada(codigoSala, nomeJogador, pontuacao, catego
 
             console.log('Atualização feita.');
 
-            // Retorna a pontuação atualizada do jogador
             return jogadorAtualizado.pontuacao; // Retorna a pontuação atualizada
         } else { 
             console.error('Erro ao inserir dados do jogador.');
-            return null; // Se jogador não existe, retorna null
+            return null;
         }
     } catch (error) {
         console.error('Erro inesperado:', error);

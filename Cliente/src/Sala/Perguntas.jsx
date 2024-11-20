@@ -7,14 +7,13 @@ import './Perguntas.css';
 
 function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomCode }) {
   
-  const pontuacao = 0;
   const [perguntaData, setPerguntaData] = useState(null); // Estado pergunta
   const [respostasAleatorias, setRespostasAleatorias] = useState([]); // Estado respostas
   const [acertou, setAcertou] = useState(false); // Estado acerto
   const [errou, setErrou] = useState(false); // Estado erro
   const [clique, setClique] = useState(false); // Estado de seleção de resposta
   const [tempoAcabou, setTempoAcabou] = useState(false); // Estado para controlar o fim do tempo
-  const [mostrarTempoAcabou, setMostrarTempoAcabou] = useState(true); // Controle da visibilidade da mensagem "tempo acabou"
+  const [mostrarTempoAcabou, setMostrarTempoAcabou] = useState(true); // Mostar resultados
 
   useEffect(() => {
     async function fetchPergunta() {
@@ -73,8 +72,8 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
     verificarClique(); // Chama função quando clica
     if (resposta === perguntaData.respCorreta) {
       setAcertou(true); // Evento para quando acerta
-      atualizarRodada(roomCode, username, pontuacao + 100, category);
-      //ponto   TA ERRADO, DECLARANDO CONST TAVA INDP
+      score += 10; // LOGICA PONTOS POR CATEGORIA
+      atualizarRodada(roomCode, username, score, category);
     } else {
       setErrou(true); // Evento para quando erra
     }
@@ -113,11 +112,9 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
 
           <div className='topResultados'>
             <h1 className='h1Resultados'>RESULTADOS DA RODADA</h1>
-
-            { isOwnUser && <h2>{category}</h2>}
-
+            
             <h2 className='h2Resultados'>
-            VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO RESPONDEU'} E RECEBEU X PONTOS
+            VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO RESPONDEU'} E TEM {isOwnUser && <h2>{score}</h2>} PONTOS
             </h2>
             <button className='fecharResultados' onClick={fecharTempoAcabou}>Fechar</button>
           </div>
