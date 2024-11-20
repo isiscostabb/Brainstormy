@@ -1,9 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import { tabelaJogadores } from '../../../Server/Database/tabelaJogadores';
-import { excluirJogador } from '../../../Server/Database/excluirJogador'; // Importe a função de exclusão
+import { excluirJogador } from '../../../Server/Database/excluirJogador'; 
 import Conteiner from '../Conteiner';
 import Podio from './Podio';
 import Temporizador from './Temporizador';
@@ -20,7 +21,7 @@ function Sala() {
 
   const [socket, setSocket] = useState(null); // Conexão
   const [messageList, setMessageList] = useState([]); // Msg
-  const [userList, setUserList] = useState([{ username, score: 0, category: '' }]); // Lista de jogadores, categorias e pontuação
+  const [userList, setUserList] = useState([{ username, category: '' }]); // Lista de jogadores, categorias e pontuação
   const [statusPergunta, setStatusPergunta] = useState(1); // Status pergunta
 
   // Estabelece a conexão e configura os ouvintes de eventos quando o componente for montado
@@ -41,7 +42,7 @@ function Sala() {
 
     // Ouvinte atualizar lista jogadores
     newSocket.on('updateUserList', (users) => {
-      const updatedUsers = users.map(user => ({ username: user, score: 0 }));
+      const updatedUsers = users.map(user => ({ username: user, category: '' })); 
       setUserList(assignCategories(updatedUsers)); // Atribui as categorias a cada rodada
     });
 
@@ -68,23 +69,21 @@ function Sala() {
     const updatedPlayers = shuffledPlayers.map((player, index) => ({
       ...player,
       category: index < numBobo ? 'BOBO' : 'CIDADÃO', // Atribui 'BOBO' ou 'CIDADÃO' com base na posição do jogador
-  }));
+    }));
 
-  // Envia as categorias para a tabelaJogadores
-  updatedPlayers.forEach((player) => {
-    tabelaJogadores(roomCode, player.username, player.category);  // Atualizando tabelaJogadores
-    
-    // Envia para o servidor
-    if (socket && socket.connected) {
-      socket.emit('updateCategory', { username: player.username, category: player.category, roomCode });
-    } else {
-      console.warn('Socket não está conectado ou disponível para emitir eventos.');
-    }
-  });
+    // Envia as categorias e atualiza a pontuação na tabelaJogadores
+    updatedPlayers.forEach((player) => {
+      tabelaJogadores(roomCode, player.username, player.category);  // Atualizando tabelaJogadores
+      // Envia para o servidor
+      if (socket && socket.connected) {
+        socket.emit('updateCategory', { username: player.username, category: player.category});
+      } else {
+        console.warn('Socket não está conectado ou disponível para emitir eventos.');
+      }
+    });
 
-  return updatedPlayers; // Retorna a lista atualizada de jogadores com suas categorias
-};
-
+    return updatedPlayers; // Retorna a lista atualizada de jogadores com suas categorias
+  };
 
   // Função q é chamada quando msg é enviada
   const handleSubmit = async (message) => {
@@ -115,43 +114,50 @@ function Sala() {
   };
 
   return (
-    <>
-      <Conteiner largura={'100vw'} altura={'100vh'}>
-        <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
-          <h1 className='h1Sala'>PÓDIO</h1>
-          <div className='podio'>
-            {userList.map((user, index) => (
-              <Podio 
+    <Conteiner largura={'100vw'} altura={'100vh'}>
+      <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
+        <h1 className='h1Sala'>PÓDIO</h1>
+        <div className='podio'>
+          {userList.map((user, index) => (
+            <Podio 
+              key={index} 
+              username={user.username} 
+              score={user.score} 
+              isOwnUser={user.username === username} 
+              category={user.category}
+            />
+          ))}
+        </div>
+      </Conteiner>
+
+      <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
+        <Temporizador onStatusPerguntaChange={setStatusPergunta} />
+        <Conteiner largura={'100%'} altura={'52vh'}>
+          {userList.map((user, index) => (
+              <Perguntas 
                 key={index} 
                 username={user.username} 
                 score={user.score} 
                 isOwnUser={user.username === username} 
                 category={user.category}
-              />
-            ))}
-          </div>
+                statusPergunta={statusPergunta}
+                roomCode={roomCode}/>
+          ))}
         </Conteiner>
-
-        <Conteiner largura={'70vw'} altura={'100%'} direcao={'column'}>
-          <Temporizador onStatusPerguntaChange={setStatusPergunta} />
-          <Conteiner largura={'100%'} altura={'52vh'}>
-            <Perguntas statusPergunta={statusPergunta} roomCode={roomCode} />
-          </Conteiner>
-          <Conteiner largura={'100%'} altura={'40vh'}>
-            <Chat
-              messageList={messageList}
-              username={username}
-              handleSubmit={handleSubmit}
-            />
-          </Conteiner>
-          <Link to="/">
-            <button type="submit" className='sair' onClick={handleLeaveRoom}>
-              <p>Sair da Sala</p>
-            </button>
-          </Link>
+        <Conteiner largura={'100%'} altura={'40vh'}>
+          <Chat
+            messageList={messageList}
+            username={username}
+            handleSubmit={handleSubmit}
+          />
         </Conteiner>
+        <Link to="/">
+          <button type="submit" className='sair' onClick={handleLeaveRoom}>
+            <p>Sair da Sala</p>
+          </button>
+        </Link>
       </Conteiner>
-    </>
+    </Conteiner>
   );
 }
 

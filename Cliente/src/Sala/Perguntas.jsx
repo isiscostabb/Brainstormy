@@ -1,9 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { tabelaPerguntas } from '../../../Server/Database/tabelaPerguntas.js';
+import { atualizarRodada } from '../../../Server/Database/atualizarRodada.js';
+
 import './Perguntas.css';
 
-function Perguntas({ statusPergunta, roomCode }) {
+function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomCode }) {
+  
+  const pontuacao = 0;
   const [perguntaData, setPerguntaData] = useState(null); // Estado pergunta
   const [respostasAleatorias, setRespostasAleatorias] = useState([]); // Estado respostas
   const [acertou, setAcertou] = useState(false); // Estado acerto
@@ -15,6 +19,7 @@ function Perguntas({ statusPergunta, roomCode }) {
   useEffect(() => {
     async function fetchPergunta() {
       const data = await tabelaPerguntas(roomCode);
+
       if (data && data.length > 0) {
         const pergunta = data[statusPergunta - 1];
         setPerguntaData(pergunta);
@@ -26,7 +31,7 @@ function Perguntas({ statusPergunta, roomCode }) {
           pergunta.respIncorreta2,
           pergunta.respIncorreta3
         ];
-        
+
         // Embaralhar respostas (Fisher-Yates)
         function embaralhar(array) {
           for (let i = array.length - 1; i > 0; i--) {
@@ -68,6 +73,8 @@ function Perguntas({ statusPergunta, roomCode }) {
     verificarClique(); // Chama função quando clica
     if (resposta === perguntaData.respCorreta) {
       setAcertou(true); // Evento para quando acerta
+      atualizarRodada(roomCode, username, pontuacao + 100, category);
+      //ponto   TA ERRADO, DECLARANDO CONST TAVA INDP
     } else {
       setErrou(true); // Evento para quando erra
     }
@@ -106,8 +113,11 @@ function Perguntas({ statusPergunta, roomCode }) {
 
           <div className='topResultados'>
             <h1 className='h1Resultados'>RESULTADOS DA RODADA</h1>
+
+            { isOwnUser && <h2>{category}</h2>}
+
             <h2 className='h2Resultados'>
-              VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO ESCOLHEU NENHUMA OPÇÃO'} E RECEBEU X PONTOS
+            VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO RESPONDEU'} E RECEBEU X PONTOS
             </h2>
             <button className='fecharResultados' onClick={fecharTempoAcabou}>Fechar</button>
           </div>
