@@ -19,7 +19,7 @@ function Sala() {
 
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-  const [userList, setUserList] = useState([{ username, category: '' }]);
+  const [userList, setUserList] = useState([{ username, category: 'aa' }]);
   const [statusPergunta, setStatusPergunta] = useState(1);
   const [jogadores, setJogadores] = useState([]);  // Estado para armazenar os dados dos jogadores
   const navigate = useNavigate(); 

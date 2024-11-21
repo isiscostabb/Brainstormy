@@ -28,6 +28,7 @@ const atualizarTemporizador = (io) => {
 
     if (contagem > 10) {
       io.emit('jogoFinalizado'); // Emite evento quando o jogo terminar
+      contagem = 1; //tirar dps
     }
 
     tempoInicial = new Date().getTime();
