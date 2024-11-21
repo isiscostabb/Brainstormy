@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import { tabelaJogadores } from '../../../Server/Database/tabelaJogadores';
@@ -21,6 +22,7 @@ function Sala() {
   const [userList, setUserList] = useState([{ username, category: '' }]);
   const [statusPergunta, setStatusPergunta] = useState(1);
   const [jogadores, setJogadores] = useState([]);  // Estado para armazenar os dados dos jogadores
+  const navigate = useNavigate(); 
 
   // Estabelece a conexão com o servidor
   useEffect(() => {
@@ -47,12 +49,16 @@ function Sala() {
     // Ouvinte quando status da pergunta muda
     newSocket.on('statusPerguntaAtualizado', setStatusPergunta);
 
+    // Ouve o evento de término do jogo
+    newSocket.on('jogoFinalizado', () => {
+        navigate('/Ranking'); // Redireciona para a página de Ranking
+    });
+
     // Função de limpeza para desconectar o socket quando o componente for desmontado
     return () => {
       newSocket.disconnect();
     };
-
-  }, [username]); //O useEffect depende apenas do 'username', para conectar o socket novamente caso mude.
+  }, [username, navigate]); // Depende do username
 
   // Atualiza MSG e JOGADORES sempre que o status da pergunta mudar
   useEffect(() => {

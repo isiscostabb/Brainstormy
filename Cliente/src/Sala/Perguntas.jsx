@@ -114,8 +114,9 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
             <h1 className='h1Resultados'>RESULTADOS DA RODADA</h1>
             
             <h2 className='h2Resultados'>
-            VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO RESPONDEU'} E TEM {isOwnUser && <h2>{score}</h2>} PONTOS
+            VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO RESPONDEU'} E TEM {isOwnUser && <span>{score}</span>} PONTOS
             </h2>
+            <h2 className='h2Resultados'></h2>
             <button className='fecharResultados' onClick={fecharTempoAcabou}>Fechar</button>
           </div>
 
