@@ -1,33 +1,41 @@
 /* LADO ESQUERDO */
 
+
 .esquerdo {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 30vw;
     height: 100%;
+    justify-content: center;
+    align-items: center;
 }
+
+
 
 
 .esquerdoCima {
     position: relative;
     display: flex;
     width: 100%;
-    height: 60%;
+    height: auto;
     justify-content: center;
     align-items: center;
 }
+
+
 
 
 .esquerdoBaixo {
     position: relative;
     display: flex;
     width: 100%;
-    height: 40%;
+    height: 60%;
     justify-content: center;
     align-items: flex-end;
-    
+   
 }
+
 
 .primeiroLugar {
     position: relative;
@@ -40,34 +48,24 @@
     overflow-y: auto;
     overflow-x: hidden;
 
+
 }
 
 
-.imagemPrimeiro {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 320px;
-    height: 320px;
-    /* Sem cor */
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    overflow: visible;
-}
 
 
 /* COROA */
 
+
 .coroa{
-    overflow: visible;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(300px);
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
+
 /* LADO DIREITO */
+
 
 .direito {
     position: relative;
@@ -80,6 +78,8 @@
 }
 
 
+
+
 .direitoMid {
     position: relative;
     display: flex;
@@ -90,8 +90,9 @@
     overflow-y: auto;
     overflow-x: hidden;
     background-color: var(--cor2);
-    
+   
 }
+
 
 .direitoTop{
     position: relative;
@@ -107,29 +108,20 @@
     transform: translateY(30%);
 }
 
+
 .linhaPlayer{
-    background-color: var(--cor1);
-    border: 2px var(--cor2);
-    height: 120px;
+
+
+    border: 3px solid var(--cor3);
+    height: 90px;
     min-height: 90px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 4px;
+
 
 }
 
-.dRank{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    place-items: center;
-    vertical-align: middle;
-    height: 65%;
-    font-size: 32px;
-    font-family: 'font2';
-    
-}
 
 .tRank{
     justify-content: center;
@@ -140,7 +132,7 @@
     height: 80%;
     font-size: 32px;
     font-family: 'font2';
-    
+   
 }
 .posicaoRank{
     width: 10%;
@@ -148,13 +140,29 @@
     border-radius: 20px;
 }
 
+
 .usuarioRank{
     width: 50%;
 
+
 }
+
 
 .pontosRank{
     width: 30%;
     background-color: white;
     border-radius: 20px;
+}
+
+
+.pe{
+    color: var(--cor4);
+    text-align: center;
+    font-size: 30px;
+    font-family: 'font2';
+}
+
+
+.pe2 {
+    color: var(--cor5);
 }
