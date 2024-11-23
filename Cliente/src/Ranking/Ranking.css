@@ -1,71 +1,93 @@
-/* LADO ESQUERDO */
 
+/* LADO ESQUERDO */
 
 .esquerdo {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 30vw;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+    height: 100vh;
+    justify-content: flex-end;
 }
-
-
-
 
 .esquerdoCima {
     position: relative;
     display: flex;
+    flex-direction: column;
     width: 100%;
+    height: 60vh;
     height: auto;
     justify-content: center;
     align-items: center;
 }
 
+.coroa{
+    position: relative;
+    left: 10px;
+}
 
+.primeiroCirculo{
+    position: relative;
+    display: flex;
+    width: 270px;
+    height: 270px;
+    background-color: var(--cor2);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+}
 
+.h2PrimeiroCirculo{
+    position: relative;
+    text-align: center;
+    color: var(--cor5);
+    font-size: 100px;
+}
 
 .esquerdoBaixo {
     position: relative;
     display: flex;
     width: 100%;
-    height: 60%;
+    height: 40vh;
     justify-content: center;
     align-items: flex-end;
-   
 }
-
 
 .primeiroLugar {
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     width: 80%;
     height: 90%;
     background-color: var(--cor2);
     border-radius: 20px 20px 0px 0px;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-
 }
 
-
-
-
-/* COROA */
-
-
-.coroa{
+.p1User{
+    top: 40px;
     position: relative;
-    width: 100%;
-    height: 100%;
+    text-align: center;
+    font-size: 60px;
+    color: var(--cor5);
+    font-family: 'font2';
+    margin-bottom: 70px;
+}
+
+.p1Pont{
+    position: relative;
+    text-align: center;
+    font-size: 50px;
+    color: var(--cor2);
+    font-family: 'font1';
+    background-color: var(--cor5);
+    width: 350px;
+    border-radius: 20px;
 }
 
 
 /* LADO DIREITO */
-
 
 .direito {
     position: relative;
@@ -77,92 +99,104 @@
     align-items: center;
 }
 
+.direitoTop{
+    position: relative;
+    display: flex;
+    width: 85%;
+    height: 10%;
+    border-radius: 20px 20px 0px 0px;
+    background-color: var(--cor3);
+    font-size: 16px;
+    justify-content: space-around;
+    align-items: center;
+}
 
-
+.pCab{
+    position: relative;
+    text-align: center;
+    font-family: 'font2';
+    color: var(--cor2);
+    font-size: 35px;
+}
 
 .direitoMid {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 85%;
-    height: 75%;
-    border-radius: 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color: var(--cor2);
-   
-}
-
-
-.direitoTop{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    width: 85%;
-    height: 15%;
-    border-radius: 20px;
-    background-color: var(--cor3);
-    font-size: 16px;
-    justify-content: space-around;
     align-items: center;
-    transform: translateY(30%);
+    width: 85%;
+    height: 80%;
+    border-radius: 0px 0px 20px 20px;
+    background-color: var(--cor2);
 }
-
 
 .linhaPlayer{
-
-
-    border: 3px solid var(--cor3);
-    height: 90px;
-    min-height: 90px;
+    position: relative;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
-
+    margin-top: 10px;
+    border: 3px solid var(--cor3);
+    height: 90px;
+    width: 95%;
+    border-radius: 20px;
 }
 
-
-.tRank{
+.posicaoRank{
+    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    place-items: center;
-    vertical-align: middle;
-    height: 80%;
-    font-size: 32px;
-    font-family: 'font2';
-   
-}
-.posicaoRank{
-    width: 10%;
-    background-color: white;
-    border-radius: 20px;
+    width: 25%;
+    height: 100%;
 }
 
+.pPosicaoRank{
+    position: relative;
+    text-align: center;
+    font-family: 'font2';
+    font-size: 30px;
+    color: var(--cor2);
+    background-color: var(--cor5);
+    width: 100px;
+    height: 50px;
+    border-radius: 20px;
+}
 
 .usuarioRank{
-    width: 50%;
-
-
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 100%;
 }
 
+.pUsuarioRank{
+    position: relative;
+    text-align: center;
+    font-family: 'font2';
+    font-size: 40px;
+    color: var(--cor5);
+}
 
 .pontosRank{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 30%;
-    background-color: white;
-    border-radius: 20px;
+    height: 100%;
 }
 
-
-.pe{
-    color: var(--cor4);
+.pPontosRank{
+    position: relative;
     text-align: center;
-    font-size: 30px;
     font-family: 'font2';
-}
-
-
-.pe2 {
-    color: var(--cor5);
+    font-size: 30px;
+    color: var(--cor2);
+    background-color: var(--cor5);
+    width: 100px;
+    height: 50px;
+    border-radius: 20px;
 }
