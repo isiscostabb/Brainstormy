@@ -1,7 +1,7 @@
 
 let contagem = 1;
 let temporizadorAtivo = false;
-let tempoTotal = 20;
+let tempoTotal = 10;
 let tempoInicial;
 
 const calcularTempoRestante = () => {
@@ -28,7 +28,7 @@ const atualizarTemporizador = (io) => {
 
     if (contagem > 10) {
       io.emit('jogoFinalizado'); // Emite evento quando o jogo terminar
-      contagem = 1; //tirar dps
+      contagem = 11;
     }
 
     tempoInicial = new Date().getTime();

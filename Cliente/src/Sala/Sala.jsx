@@ -13,13 +13,14 @@ import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
+
   const location = useLocation();
   const username = location.state?.username || 'Usuário';
   const roomCode = location.state?.roomCode;
 
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-  const [userList, setUserList] = useState([{ username, category: 'aa' }]);
+  const [userList, setUserList] = useState([{ username, category: 'teste' }]);
   const [statusPergunta, setStatusPergunta] = useState(1);
   const [jogadores, setJogadores] = useState([]);  // Estado para armazenar os dados dos jogadores
   const navigate = useNavigate(); 
@@ -42,7 +43,7 @@ function Sala() {
 
     // Ouvinte atualizar lista jogadores
     newSocket.on('updateUserList', (users) => {
-      const updatedUsers = users.map(user => ({ username: user, category: '' })); 
+      const updatedUsers = users.map(user => ({ username: user, category: 'teste2' })); 
       setUserList(assignCategories(updatedUsers)); // Atribui as categorias a cada rodada
     });
 
@@ -51,8 +52,12 @@ function Sala() {
 
     // Ouve o evento de término do jogo
     newSocket.on('jogoFinalizado', () => {
-        navigate('/Ranking'); // Redireciona para a página de Ranking
-    });
+    const jogadorAtual = jogadores.find(jogador => jogador.nome === username);
+    const pontuacao = (jogadorAtual ? jogadorAtual.pontuacao : 0);
+
+    // Redireciona para a página de Ranking, passando os dados necessários
+    navigate('/Ranking', { state: { username, pontuacao } });
+  });
 
     // Função de limpeza para desconectar o socket quando o componente for desmontado
     return () => {

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { tabelaPerguntas } from '../../../Server/Database/tabelaPerguntas.js';
 import { atualizarRodada } from '../../../Server/Database/atualizarRodada.js';
@@ -53,7 +54,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
   useEffect(() => {
     const timer = setTimeout(() => {
       setTempoAcabou(true); // Define o tempo como acabado
-    }, 10000); // Tempo de 10 segundos para cada pergunta
+    }, 1000); // Tempo de 10 segundos para cada pergunta
 
     return () => clearTimeout(timer); // Limpa o temporizador quando statusPergunta mudar
   }, [statusPergunta]);
@@ -120,8 +121,8 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
                 <h1 className='h1Resultados'>RESULTADOS DA RODADA</h1>
 
                 <h2 className='h2Resultados'>
-                  VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO RESPONDEU'} E TEM{' '}
-                  {isOwnUser && <span>{pontuacao}</span>} PONTOS
+                  VOCÊ {acertou ? 'ACERTOU A RESPOSTA' : errou ? 'ERROU A RESPOSTA' : 'NÃO RESPONDEU'} E TEM 
+                  {isOwnUser && (<span> {pontuacao} </span>)} PONTOS
                 </h2>
                 <button className='fecharResultados' onClick={fecharTempoAcabou}>
                   Fechar
