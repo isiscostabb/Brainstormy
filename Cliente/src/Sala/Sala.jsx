@@ -67,13 +67,13 @@ function Sala() {
     // Ouvinte fim jogo
     newSocket.on('jogoFinalizado', () => {
 
-      //---------------------------------------
+      /*---------------------------------------
       const updatedPodio = jogadores.map(({ nome, pontuacao }) => ({
         username: nome,
         pontuacao,
       }));
 
-      //---------------------------------------
+      //--------------------------------------- */
 
       navigate('/Ranking', { state: { updatedPodio } });
 
@@ -83,7 +83,7 @@ function Sala() {
     return () => {
       newSocket.disconnect();
     };
-  }, [username, navigate, isFirstUpdate, jogadores]);  //jogadores
+  }, [username, navigate, isFirstUpdate]);  //jogadores
     
   //---------------------------------------
 

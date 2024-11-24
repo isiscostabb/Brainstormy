@@ -84,7 +84,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
 
       } else { // Quando erra
         setErrou(true); 
-        //if (category === 'CIDADÃO') {
+        /*if (category === 'CIDADÃO') {
           const novaPontuacao = pontuacao - 5;
           setPontuacao(novaPontuacao);
           atualizarRodada(roomCode, username, novaPontuacao, category);
@@ -92,7 +92,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
           //const novaPontuacao = pontuacao + 5; //x quantidade erros
           //setPontuacao(novaPontuacao);
           //atualizarRodada(roomCode, username, novaPontuacao, category);
-        //}
+        }*/
       }
     }, 110500); // 110500
   }
@@ -146,14 +146,14 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
                   Fechar
                 </button>
               </div>
-              <div className='midResultados'>
+              {/*<div className='midResultados'>
                 <h3 className='h3Resultados'>QUANTIDADE DE ACERTOS: X</h3>
                 <h3 className='h3Resultados'>CADA <strong>CIDADÃO</strong> RECEBEU X PONTOS</h3>
               </div>
               <div className='midResultados'>
                 <h3 className='h3Resultados'>QUANTIDADE DE ERROS: X</h3>
                 <h3 className='h3Resultados'>CADA <strong>BOBO</strong> RECEBEU X PONTOS</h3>
-              </div>
+              </div>*/}
             </div>
           )}
         </div>
