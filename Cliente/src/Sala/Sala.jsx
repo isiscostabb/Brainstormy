@@ -1,19 +1,17 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import { tabelaJogadores } from '../../../Server/Database/tabelaJogadores';
-import { excluirJogador } from '../../../Server/Database/excluirJogador'; 
+import { excluirJogador } from '../../../Server/Database/excluirJogador';
 import Conteiner from '../Conteiner';
 import Podio from './Podio';
 import Temporizador from './Temporizador';
-import Chat from './Chat'; 
+import Chat from './Chat';
 import Perguntas from './Perguntas';
 import './Sala.css';
 
 function Sala() {
-
   const location = useLocation();
   const username = location.state?.username || 'Usuário';
   const roomCode = location.state?.roomCode;
@@ -22,10 +20,10 @@ function Sala() {
   const [messageList, setMessageList] = useState([]);
   const [userList, setUserList] = useState([{ username, category: '' }]);
   const [statusPergunta, setStatusPergunta] = useState(1);
-  const [jogadores, setJogadores] = useState([]); // Estado para armazenar os dados dos jogadores
-  const navigate = useNavigate(); 
+  const [jogadores, setJogadores] = useState([]);
+  const [isFirstUpdate, setIsFirstUpdate] = useState(true); // Estado para controlar a primeira atualização
+  const navigate = useNavigate();
 
-  // Estabelece a conexão com o servidor
   useEffect(() => {
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
@@ -33,18 +31,32 @@ function Sala() {
     // Envia servidor usuário
     newSocket.emit('newUser', username);
 
-    // Ouvinte msg
-    newSocket.on('recebendoMsg', (data) => setMessageList((current) => [...current, data]));
-
-    // Ouvinte sair da sala (remove da lista de usuários)
-    newSocket.on('userLeft', (leftUser) => 
-      setUserList((currentList) => currentList.filter(user => user.username !== leftUser)) // Atribui as categorias cada rodada
+    // Ouvinte para receber mensagens
+    newSocket.on('recebendoMsg', (data) =>
+      setMessageList((current) => [...current, data])
     );
 
-    // Ouvinte para atualizar a lista de jogadores
+    // Ouvinte para atualizar a lista de usuários
     newSocket.on('updateUserList', (users) => {
-      const updatedUsers = users.map(user => ({ username: user, category: 'teste2' })); 
-      setUserList(assignCategories(updatedUsers)); // Atribui as categorias a cada rodada
+      setUserList((prevList) => {
+        const updatedUsers = users.map((user) => ({
+          username: user,
+          category: '',
+        }));
+
+        // Atualiza na primeira vez
+        if (isFirstUpdate) {
+          setIsFirstUpdate(false);
+          return assignCategories(updatedUsers);
+        }
+
+        // Verifica se houve mudanças
+        if (JSON.stringify(prevList) !== JSON.stringify(updatedUsers)) {
+          return assignCategories(updatedUsers);
+        }
+
+        return prevList;
+      });
     });
 
     // Ouvinte quando status da pergunta muda
@@ -52,21 +64,14 @@ function Sala() {
 
     // Ouvinte fim jogo
     newSocket.on('jogoFinalizado', () => {
-
-      const updatedPodio = jogadores.map(({ nome, pontuacao }) => ({
-        username: nome,
-        pontuacao,
-      }));
-
-      // Redireciona para a página de Ranking
-      navigate('/Ranking', { state: { updatedPodio } });
+      navigate('/Ranking');
     });
 
-    // Função de limpeza para desconectar o socket quando o componente for desmontado
+    // Função de limpeza para desconectar o socket
     return () => {
       newSocket.disconnect();
     };
-  }, [username, navigate, jogadores]);
+  }, [username, navigate, isFirstUpdate]);
 
   // Atualiza MSG e JOGADORES sempre que o status da pergunta mudar
   useEffect(() => {
@@ -76,19 +81,20 @@ function Sala() {
 
   // Função BOBO e CIDADÃO
   const assignCategories = (players) => {
-    const numBobo = Math.floor(players.length * 0.15); // Calculo do 15%
-    const shuffledPlayers = [...players].sort(() => 0.5 - Math.random()); // Embaralha lista de jogador
+    const numBobo = Math.floor(players.length * 0.15);
+    const shuffledPlayers = [...players].sort(() => 0.5 - Math.random());
     const updatedPlayers = shuffledPlayers.map((player, index) => ({
       ...player,
       category: index < numBobo ? 'BOBO' : 'CIDADÃO', // Atribui 'BOBO' ou 'CIDADÃO' com base na posição do jogador
     }));
 
-    // Envia as categorias e atualiza a pontuação na tabelaJogadores
     updatedPlayers.forEach((player) => {
-      tabelaJogadores(roomCode, player.username, player.category);  // Atualizando tabelaJogadores
-      // Envia para o servidor
+      tabelaJogadores(roomCode, player.username, player.category);
       if (socket && socket.connected) {
-        socket.emit('updateCategory', { username: player.username, category: player.category });
+        socket.emit('updateCategory', {
+          username: player.username,
+          category: player.category,
+        });
       }
     });
 
@@ -99,7 +105,12 @@ function Sala() {
   const fetchJogadoresData = async () => {
     const jogadoresData = [];
     for (const user of userList) {
-      const jogador = await tabelaJogadores(roomCode, user.username, user.category, user.score);
+      const jogador = await tabelaJogadores(
+        roomCode,
+        user.username,
+        user.category,
+        user.score
+      );
       if (jogador) {
         jogadoresData.push(jogador);
       }
@@ -130,7 +141,7 @@ function Sala() {
       // Chama a função para excluir os dados do jogador ao sair
       const success = await excluirJogador(username);
       if (success) {
-        console.log(`Dados do jogador ${username} excluídos com sucesso.`);
+        console.log(`Dados do jogador ${username} excluídos.`);
       } else {
         console.warn('Erro ao excluir os dados do jogador.');
       }
@@ -144,14 +155,14 @@ function Sala() {
   return (
     <Conteiner largura={'100vw'} altura={'100vh'}>
       <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
-        <h1 className='h1Sala'>PÓDIO</h1>
-        <div className='podio'>
+        <h1 className="h1Sala">PÓDIO</h1>
+        <div className="podio">
           {jogadores.map((jogador, index) => (
-            <Podio 
-              key={index} 
-              username={jogador.nome} 
-              score={jogador.pontuacao} 
-              isOwnUser={jogador.nome === username} 
+            <Podio
+              key={index}
+              username={jogador.nome}
+              score={jogador.pontuacao}
+              isOwnUser={jogador.nome === username}
               category={jogador.category}
             />
           ))}
@@ -162,11 +173,11 @@ function Sala() {
         <Temporizador onStatusPerguntaChange={setStatusPergunta} />
         <Conteiner largura={'100%'} altura={'52vh'}>
           {jogadores.map((jogador, index) => (
-            <Perguntas 
-              key={index} 
-              username={jogador.nome} 
-              score={jogador.pontuacao} 
-              isOwnUser={jogador.nome === username} 
+            <Perguntas
+              key={index}
+              username={jogador.nome}
+              score={jogador.pontuacao}
+              isOwnUser={jogador.nome === username}
               category={jogador.category}
               statusPergunta={statusPergunta}
               roomCode={roomCode}
@@ -181,7 +192,7 @@ function Sala() {
           />
         </Conteiner>
         <Link to="/">
-          <button type="submit" className='sair' onClick={handleLeaveRoom}>
+          <button type="submit" className="sair" onClick={handleLeaveRoom}>
             <p>Sair da Sala</p>
           </button>
         </Link>
