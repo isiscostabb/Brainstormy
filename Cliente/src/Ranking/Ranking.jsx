@@ -6,8 +6,6 @@ import './Ranking.css';
 function Ranking() {
 
   const location = useLocation();
-  const username = location.state?.username;
-  const pontuacao = location.state?.pontuacao;
   const updatedPodio = location.state?.updatedPodio;
   const navigate = useNavigate();
 

@@ -75,13 +75,24 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
     verificarClique(); // Chama função quando clica
   
     setTimeout(() => {
-      if (resposta === perguntaData.respCorreta) {
-        setAcertou(true); // Quando acerta
-        const novaPontuacao = pontuacao + 10; 
+
+      if (resposta === perguntaData.respCorreta && category === 'CIDADÃO') { // Quando acerta
+        setAcertou(true); 
+        const novaPontuacao = pontuacao + 5; //x quantidade acertos
         setPontuacao(novaPontuacao);
         atualizarRodada(roomCode, username, novaPontuacao, category);
+
       } else { // Quando erra
         setErrou(true); 
+        if (category === 'CIDADÃO') {
+          const novaPontuacao = pontuacao - 5;
+          setPontuacao(novaPontuacao);
+          atualizarRodada(roomCode, username, novaPontuacao, category);
+        } else {
+          const novaPontuacao = pontuacao + 5; //x quantidade erros
+          setPontuacao(novaPontuacao);
+          atualizarRodada(roomCode, username, novaPontuacao, category);
+        }
       }
     }, 110500); // 110500
   }

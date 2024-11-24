@@ -21,7 +21,7 @@ function Podio({ username, isOwnUser, score, category }) {
           <Conteiner largura={'30%'} altura={'100%'}>
             <div className='funcao'>
               {/*{isOwnUser && (<p className='pFuncao'>{category}</p>)} */}
-              <p className='pFuncao'>cidadao</p>
+              <p className='pFuncao'>{category}</p>
             </div>
           </Conteiner>
         </Conteiner>
