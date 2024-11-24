@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { io } from 'socket.io-client';
@@ -22,6 +23,7 @@ function Sala() {
   const [statusPergunta, setStatusPergunta] = useState(1);
   const [jogadores, setJogadores] = useState([]);
   const [isFirstUpdate, setIsFirstUpdate] = useState(true); // Estado para controlar a primeira atualização
+  const [updatedPodio, setUpdatedPodio] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,14 +66,29 @@ function Sala() {
 
     // Ouvinte fim jogo
     newSocket.on('jogoFinalizado', () => {
-      navigate('/Ranking');
+
+
+      //---------------------------------------
+      const updatedPodio = jogadores.map(({ nome, pontuacao }) => ({
+        username: nome,
+        pontuacao,
+      }));
+      //---------------------------------------
+
+      navigate('/Ranking', { state: { updatedPodio } });
+
     });
 
     // Função de limpeza para desconectar o socket
     return () => {
       newSocket.disconnect();
     };
-  }, [username, navigate, isFirstUpdate]);
+  }, [username, navigate, isFirstUpdate, jogadores]);  //jogadores
+    
+  //---------------------------------------
+
+
+
 
   // Atualiza MSG e JOGADORES sempre que o status da pergunta mudar
   useEffect(() => {

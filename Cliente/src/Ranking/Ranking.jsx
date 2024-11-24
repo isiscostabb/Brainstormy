@@ -30,7 +30,7 @@ function Ranking() {
               </div>
               <div className="esquerdoBaixo">
                 <div className="primeiroLugar">
-                  <p className="p1User">{updatedPodio[0]?.username.toUpperCase()}</p>
+                  <p className="p1User">{updatedPodio[0]?.username}</p>
                   <p className="p1Pont">{updatedPodio[0]?.pontuacao} pontos</p>
                 </div>
               </div>
@@ -38,19 +38,19 @@ function Ranking() {
 
             <div className="direito">
               <div className="direitoTop">
-                <p className="pCab">POSIÇÃO</p>
-                <p className="pCab">JOGADOR</p>
-                <p className="pCab">PONTUAÇÃO</p>
+                <p className="pCab"> POSIÇÃO </p>
+                <p className="pCab"> JOGADORES </p>
+                <p className="pCab"> PONTUAÇÃO </p>
               </div>
 
               <div className="direitoMid">
                 {updatedPodio?.map((item, index) => (
-                  <div key={index} className="linhaPlayer">
-                    <div className='posicaoRank'> <p className='pPosicaoRank'> {index + 1}º </p></div>
-                    <div className='usuarioRank'> <p className='pUsuarioRank'> {item.username}</p></div>
-                    <div className='pontosRank'> <p className='pPontosRank'> {item.pontuacao} </p></div>
-                  </div>
-                ))}
+                    <div key={index} className="linhaPlayer">
+                      <div className='posicaoRank'> <p className='pPosicaoRank'> {index + 1}º </p></div>
+                      <div className='usuarioRank'> <p className='pUsuarioRank'> {item.username}</p></div>
+                      <div className='pontosRank'> <p className='pPontosRank'> {item.pontuacao} </p></div>
+                    </div>
+                  ))}
               </div>
             </div>
           </Conteiner>
