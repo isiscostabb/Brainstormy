@@ -55,7 +55,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
   useEffect(() => {
     const timer = setTimeout(() => {
       setTempoAcabou(true); // Define o tempo como acabado
-    }, 1000); // Tempo de 10 segundos para cada pergunta
+    }, 110900); //111000
 
     return () => clearTimeout(timer); // Limpa o temporizador quando statusPergunta mudar
   }, [statusPergunta]);
@@ -69,20 +69,23 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
     setClique(true);
   }
 
+
   // Verificar resposta
   function verificarResposta(resposta) {
     verificarClique(); // Chama função quando clica
-
-    if (resposta === perguntaData.respCorreta) {
-      setAcertou(true); // Evento para quando acerta
-      const novaPontuacao = pontuacao + 10; // Adiciona pontos
-      setPontuacao(novaPontuacao);
-      atualizarRodada(roomCode, username, novaPontuacao, category); // Atualiza a pontuação no servidor
-    
-    } else {
-      setErrou(true); // Evento para quando erra
-    }
+  
+    setTimeout(() => {
+      if (resposta === perguntaData.respCorreta) {
+        setAcertou(true); // Quando acerta
+        const novaPontuacao = pontuacao + 10; 
+        setPontuacao(novaPontuacao);
+        atualizarRodada(roomCode, username, novaPontuacao, category);
+      } else { // Quando erra
+        setErrou(true); 
+      }
+    }, 110500); // 110500
   }
+  
 
   // Resultados quando acaba tempo
   function fecharTempoAcabou() {

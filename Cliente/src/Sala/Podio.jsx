@@ -16,7 +16,7 @@ function Podio({ username, isOwnUser, score, category }) {
           </Conteiner>
           <div className='podioMeio'>
             <p className={`nomeUser ${isOwnUser ? 'this' : ''}`}> {username} </p>
-            <p className='pontuacao'>pontuação: {score}xp</p>
+            <p className='pontuacao'>pontuação: {isOwnUser && `${score} xp`}</p>
           </div>
           <Conteiner largura={'30%'} altura={'100%'}>
             <div className='funcao'>

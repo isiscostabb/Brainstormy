@@ -70,11 +70,10 @@ function Lobby() {
 
 
           <div className="botoesLobby">
-            {erroSala && <p className="erroSala">{erroSala}</p>} {/* msg erro */}
-
             <button className="lobby jogar" onClick={handleSubmit}><h2 className='txtButton'>ENTRAR NA SALA</h2></button>
+            {erroSala && <p className="erroSala">{erroSala}</p>} {/* msg erro */}
             <Link to="/Login">
-              <button className="lobby criar"><h2 className='txtButton'>CRIAR SALA</h2></button>
+              {/*<button className="lobby criar"><h2 className='txtButton'>CRIAR SALA</h2></button>*/}
             </Link>
           </div>
         </div>

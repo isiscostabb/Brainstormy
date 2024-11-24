@@ -1,7 +1,7 @@
 
 let contagem = 1;
 let temporizadorAtivo = false;
-let tempoTotal = 25;
+let tempoTotal = 120;
 let tempoInicial;
 
 const calcularTempoRestante = () => {
