@@ -4,9 +4,11 @@ import Conteiner from '../Conteiner';
 import './Ranking.css';
 
 function Ranking() {
+
   const location = useLocation();
   const username = location.state?.username;
   const pontuacao = location.state?.pontuacao;
+  const updatedPodio = location.state?.updatedPodio;
   const navigate = useNavigate();
 
   return (
@@ -19,7 +21,6 @@ function Ranking() {
           </Link>
 
           <Conteiner altura={'100vh'} largura={'100vw'}>
-            {/* Parte esquerda */}
             <div className="esquerdo">
               <div className="esquerdoCima">
                 <img src="coroagirandogife.gif" alt="coroa" className="coroa" />
@@ -29,14 +30,12 @@ function Ranking() {
               </div>
               <div className="esquerdoBaixo">
                 <div className="primeiroLugar">
-                  {/* Substitua aqui com o primeiro usuário da lista */}
-                  <p className="p1User">{username}</p>
-                  <p className="p1Pont">{pontuacao} pontos</p>
+                  <p className="p1User">{updatedPodio[0]?.username.toUpperCase()}</p>
+                  <p className="p1Pont">{updatedPodio[0]?.pontuacao} pontos</p>
                 </div>
               </div>
             </div>
 
-            {/* Parte direita */}
             <div className="direito">
               <div className="direitoTop">
                 <p className="pCab">POSIÇÃO</p>
@@ -45,15 +44,17 @@ function Ranking() {
               </div>
 
               <div className="direitoMid">
-                <div className='linhaPlayer'>
-                  <div className='posicaoRank'> <p className='pPosicaoRank'>2º</p></div>
-                  <div className='usuarioRank'> <p className='pUsuarioRank'>USUÁRIO</p></div>
-                  <div className='pontosRank'> <p className='pPontosRank'> 120</p></div>
-                </div>
+                {updatedPodio?.map((item, index) => (
+                  <div key={index} className="linhaPlayer">
+                    <div className='posicaoRank'> <p className='pPosicaoRank'> {index + 1}º </p></div>
+                    <div className='usuarioRank'> <p className='pUsuarioRank'> {item.username}</p></div>
+                    <div className='pontosRank'> <p className='pPontosRank'> {item.pontuacao} </p></div>
+                  </div>
+                ))}
               </div>
             </div>
           </Conteiner>
-    </>
+        </>
   );
 }
 

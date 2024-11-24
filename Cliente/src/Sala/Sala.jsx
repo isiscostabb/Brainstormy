@@ -20,9 +20,9 @@ function Sala() {
 
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-  const [userList, setUserList] = useState([{ username, category: 'teste' }]);
+  const [userList, setUserList] = useState([{ username, category: '' }]);
   const [statusPergunta, setStatusPergunta] = useState(1);
-  const [jogadores, setJogadores] = useState([]);  // Estado para armazenar os dados dos jogadores
+  const [jogadores, setJogadores] = useState([]); // Estado para armazenar os dados dos jogadores
   const navigate = useNavigate(); 
 
   // Estabelece a conexão com o servidor
@@ -41,7 +41,7 @@ function Sala() {
       setUserList((currentList) => currentList.filter(user => user.username !== leftUser)) // Atribui as categorias cada rodada
     );
 
-    // Ouvinte atualizar lista jogadores
+    // Ouvinte para atualizar a lista de jogadores
     newSocket.on('updateUserList', (users) => {
       const updatedUsers = users.map(user => ({ username: user, category: 'teste2' })); 
       setUserList(assignCategories(updatedUsers)); // Atribui as categorias a cada rodada
@@ -50,20 +50,23 @@ function Sala() {
     // Ouvinte quando status da pergunta muda
     newSocket.on('statusPerguntaAtualizado', setStatusPergunta);
 
-    // Ouve o evento de término do jogo
+    // Ouvinte fim jogo
     newSocket.on('jogoFinalizado', () => {
-    const jogadorAtual = jogadores.find(jogador => jogador.nome === username);
-    const pontuacao = (jogadorAtual ? jogadorAtual.pontuacao : 0);
 
-    // Redireciona para a página de Ranking, passando os dados necessários
-    navigate('/Ranking', { state: { username, pontuacao } });
-  });
+      const updatedPodio = jogadores.map(({ nome, pontuacao }) => ({
+        username: nome,
+        pontuacao,
+      }));
+
+      // Redireciona para a página de Ranking
+      navigate('/Ranking', { state: { updatedPodio } });
+    });
 
     // Função de limpeza para desconectar o socket quando o componente for desmontado
     return () => {
       newSocket.disconnect();
     };
-  }, [username, navigate]); // Depende do username
+  }, [username, navigate, jogadores]);
 
   // Atualiza MSG e JOGADORES sempre que o status da pergunta mudar
   useEffect(() => {

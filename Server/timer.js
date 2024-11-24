@@ -1,7 +1,7 @@
 
 let contagem = 1;
 let temporizadorAtivo = false;
-let tempoTotal = 10;
+let tempoTotal = 25;
 let tempoInicial;
 
 const calcularTempoRestante = () => {
@@ -24,7 +24,6 @@ const atualizarTemporizador = (io) => {
     io.emit('tempoAtualizado', tempoRestante);
     io.emit('statusPerguntaAtualizado', contagem);
   } else {
-    contagem += 1;
 
     if (contagem > 10) {
       io.emit('jogoFinalizado'); // Emite evento quando o jogo terminar

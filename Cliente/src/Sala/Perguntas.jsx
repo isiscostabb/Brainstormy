@@ -6,6 +6,7 @@ import { atualizarRodada } from '../../../Server/Database/atualizarRodada.js';
 import './Perguntas.css';
 
 function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomCode }) {
+
   const [perguntaData, setPerguntaData] = useState(null); // Estado pergunta
   const [respostasAleatorias, setRespostasAleatorias] = useState([]); // Estado respostas
   const [acertou, setAcertou] = useState(false); // Estado acerto
@@ -15,9 +16,9 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
   const [mostrarTempoAcabou, setMostrarTempoAcabou] = useState(true); // Mostrar resultados
   const [pontuacao, setPontuacao] = useState(score); // Estado da pontuação local
 
-  // Fetch de pergunta e respostas
   useEffect(() => {
     async function fetchPergunta() {
+
       const data = await tabelaPerguntas(roomCode);
 
       if (data && data.length > 0) {
@@ -29,7 +30,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
           pergunta.respCorreta,
           pergunta.respIncorreta1,
           pergunta.respIncorreta2,
-          pergunta.respIncorreta3,
+          pergunta.respIncorreta3
         ];
 
         // Embaralhar respostas (Fisher-Yates)
@@ -50,7 +51,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
     fetchPergunta();
   }, [statusPergunta, roomCode]);
 
-  // Controlar o tempo
+  // Fim do tempo
   useEffect(() => {
     const timer = setTimeout(() => {
       setTempoAcabou(true); // Define o tempo como acabado
@@ -63,25 +64,27 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
     return <p>Carregando...</p>;
   }
 
-  // Após o clique, bloqueia as respostas
+  // Após o clique bloqueia as respostas
   function verificarClique() {
     setClique(true);
   }
 
   // Verificar resposta
   function verificarResposta(resposta) {
-    verificarClique(); // Bloqueia novas respostas
+    verificarClique(); // Chama função quando clica
+
     if (resposta === perguntaData.respCorreta) {
       setAcertou(true); // Evento para quando acerta
       const novaPontuacao = pontuacao + 10; // Adiciona pontos
       setPontuacao(novaPontuacao);
       atualizarRodada(roomCode, username, novaPontuacao, category); // Atualiza a pontuação no servidor
+    
     } else {
       setErrou(true); // Evento para quando erra
     }
   }
 
-  // Fechar o modal de tempo acabado
+  // Resultados quando acaba tempo
   function fecharTempoAcabou() {
     setMostrarTempoAcabou(false);
     setErrou(false); // Resetar o estado de erro para cada rodada
@@ -107,16 +110,17 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
             ))}
           </div>
 
-          {/* Mensagem quando uma resposta é clicada */}
+        {/* Mensagem quando uma resposta é clicada */}
           {clique && (
             <div className='selecao'>
               <p className='pSelecao'>O resultado aparece somente após o final da rodada</p>
             </div>
           )}
 
-          {/* Modal de resultados quando o tempo acaba */}
+          {/* Quando tempo acaba */}
           {tempoAcabou && mostrarTempoAcabou && (
             <div className='resultados'>
+
               <div className='topResultados'>
                 <h1 className='h1Resultados'>RESULTADOS DA RODADA</h1>
 

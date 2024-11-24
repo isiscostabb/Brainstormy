@@ -142,6 +142,12 @@
     height: 90px;
     width: 95%;
     border-radius: 20px;
+    transition: .3s;
+}
+
+.linhaPlayer:hover{
+    background-color: var(--cor3);
+    transition: .3s;
 }
 
 .posicaoRank{
