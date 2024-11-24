@@ -83,7 +83,7 @@ function Sala() {
     return () => {
       newSocket.disconnect();
     };
-  }, [username, navigate, isFirstUpdate]);  //jogadores
+  }, [username, navigate, isFirstUpdate, jogadores]);  //jogadores
     
   //---------------------------------------
 
