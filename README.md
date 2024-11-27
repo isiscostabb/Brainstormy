@@ -1,4 +1,4 @@
-# <img src="Cliente\public\Logo.png" width="65" height="65"> Projeto Integrador: Sistemas Web!
+# <img src="Cliente\public\Logo.png" width="65" height="65"> BRAINSTORMY
 
 O objetivo do projeto visa ser uma solução auxiliar para professores que
 tem como intuito medir o aprendizado que os alunos tiveram em sala de
@@ -18,7 +18,7 @@ sua persuasão e comunicação.
 
 <br/>
 
-## 👷🏽 Desenvolvedores:
+## DESENVOLVEDORES
 
 - [Alexandre Destro](https://github.com/AlexandreDestro)
 - [Isis Costa](https://github.com/isiscostabb)
@@ -26,7 +26,7 @@ sua persuasão e comunicação.
 
 <br/>
 
-## 📊 Tecnologias utilizadas:
+## TECNOLOGIAS E FERRAMENTAS UTILIZADAS
 
 - HTML;
 - CSS;
@@ -37,7 +37,7 @@ sua persuasão e comunicação.
 
 <br/>
 
-## 🔧 Intalação:
+## INSTALAÇÃO
 
 1. Clone este repositório com `git clone` ou baixe o código-fonte.
 2. Digite no terminal do Server dps de instalar: `npm install @supabase/supabase-js`
@@ -47,13 +47,7 @@ sua persuasão e comunicação.
 
 <br/>
 
-## 🎯 Público-alvo:
-
-Estudantes e estusiastas que queiram práticar seu conhecimento em história, tendo como objetivo, saber seu nível de acertividade sobre assuntos históricos.
-
-<br/>
-
-## 🔭 Demonstração do projeto:
+## DESMONSTRAÇÃO DO PROJETO 
 
 
 ![Lobby](https://github.com/user-attachments/assets/aacd9bea-6f78-4067-aa79-c1306f390e0f)
