@@ -176,7 +176,7 @@ function Sala() {
               username={jogador.nome}
               score={jogador.pontuacao}
               isOwnUser={jogador.nome === username}
-              category={jogador.category}
+              category={userList[index].category}
             />
           ))}
         </div>
