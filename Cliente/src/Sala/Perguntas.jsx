@@ -55,7 +55,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
   useEffect(() => {
     const timer = setTimeout(() => {
       setTempoAcabou(true); // Define o tempo como acabado
-    }, 110900); //111000
+    }); //111000
 
     return () => clearTimeout(timer); // Limpa o temporizador quando statusPergunta mudar
   }, [statusPergunta]);
@@ -94,7 +94,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
           //atualizarRodada(roomCode, username, novaPontuacao, category);
         }*/
       }
-    }, 110500); // 110500
+    }); // 110500
   }
   
 
@@ -132,7 +132,7 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
           )}
 
           {/* Quando tempo acaba */}
-          {tempoAcabou && mostrarTempoAcabou && (
+          {/*{tempoAcabou && mostrarTempoAcabou && (
             <div className='resultados'>
 
               <div className='topResultados'>
@@ -153,9 +153,9 @@ function Perguntas({ username, isOwnUser, score, category, statusPergunta, roomC
               <div className='midResultados'>
                 <h3 className='h3Resultados'>QUANTIDADE DE ERROS: X</h3>
                 <h3 className='h3Resultados'>CADA <strong>BOBO</strong> RECEBEU X PONTOS</h3>
-              </div>*/}
+              </div>
             </div>
-          )}
+          )} */}
         </div>
       )}
     </>

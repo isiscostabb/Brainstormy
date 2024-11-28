@@ -67,13 +67,10 @@ function Sala() {
     // Ouvinte fim jogo
     newSocket.on('jogoFinalizado', () => {
 
-      /*---------------------------------------
-      const updatedPodio = jogadores.map(({ nome, pontuacao }) => ({
+      /*const updatedPodio = jogadores.map(({ nome, pontuacao }) => ({
         username: nome,
         pontuacao,
-      }));
-
-      //--------------------------------------- */
+      }));*/
 
       navigate('/Ranking', { state: { updatedPodio } });
 
@@ -171,7 +168,9 @@ function Sala() {
       <Conteiner largura={'30vw'} altura={'100%'} direcao={'column'}>
         <h1 className="h1Sala">PÓDIO</h1>
         <div className="podio">
-          {jogadores.map((jogador, index) => (
+        {[...jogadores]
+          .sort((a, b) => b.pontuacao - a.pontuacao)
+          .map((jogador, index) => (
             <Podio
               key={index}
               username={jogador.nome}
