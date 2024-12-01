@@ -19,7 +19,10 @@ function Ranking() {
           </Link>
 
           <Conteiner altura={'100vh'} largura={'100vw'}>
-            <div className="esquerdo">
+            <div className='fundo'>
+              <h1 className='msgFim'>FIM DE JOGO!</h1>
+            </div>
+            {/*<div className="esquerdo">
               <div className="esquerdoCima">
                 <img src="coroagirandogife.gif" alt="coroa" className="coroa" />
                 <div className="primeiroCirculo">
@@ -50,7 +53,7 @@ function Ranking() {
                     </div>
                   ))}
               </div>
-            </div>
+            </div>*/}
           </Conteiner>
         </>
   );
